@@ -4170,6 +4170,8 @@ const FAV_KEY   = 'zika_favorites_v14';
 const LETTERS_KEY = 'zika_letters_v11';
 const MSG_AVATAR_KEY = 'zika_msg_avatar_show';
 const LETTER_SETTINGS_KEY = 'zika_letter_settings_v1';
+const CHAT_KEY = 'zika_chat_messages_v1';
+const CHAT_MAX = 500;
 
 const DEFAULT_RC_UNREAD = '未读';
 const DEFAULT_RC_READ   = '已读';
@@ -4636,7 +4638,8 @@ const MAIL_READ_KEY     = 'zika_mail_read_v1';
 const ALL_KNOWN_KEYS = [
   STORE_KEY, CARDS_KEY, FAV_KEY, QUOTES_KEY, MOODS_KEY, DIARIES_KEY, RECORDS_KEY,
   ANNIV_KEY, LETTERS_KEY, THEME_KEY, MSG_AVATAR_KEY, AVATAR_ME_KEY, AVATAR_THEM_KEY, NAME_ME_KEY, NAME_THEM_KEY,
-  NOTICE_MODE_KEY, NOTICE_SEEN_KEY, MAIL_SETTINGS_KEY, MAIL_PENDING_KEY, MAIL_DAILY_KEY, MAIL_READ_KEY, LETTER_SETTINGS_KEY
+  NOTICE_MODE_KEY, NOTICE_SEEN_KEY, MAIL_SETTINGS_KEY, MAIL_PENDING_KEY, MAIL_DAILY_KEY, MAIL_READ_KEY, LETTER_SETTINGS_KEY,
+  CHAT_KEY
 ];
 
 function buildAllBackup() {
@@ -4937,6 +4940,29 @@ if (mailTabs) mailTabs.addEventListener('click', (e) => { const btn = e.target.c
 let pendingReceipts = [];
 const TIME_MERGE_WINDOW = 3 * 60 * 1000; // 3 分钟内合并
 
+function saveChatMessages() {
+  try {
+    const data = messages.slice(-CHAT_MAX).map(m => ({
+      side: m.side,
+      text: m.text,
+      quote: m.quote || null,
+      time: m.time,
+      readTime: m.readTime || 0
+    }));
+    localStorage.setItem(CHAT_KEY, JSON.stringify(data));
+  } catch (e) {}
+}
+
+function loadChatMessages() {
+  try {
+    const raw = localStorage.getItem(CHAT_KEY);
+    const arr = raw ? JSON.parse(raw) : [];
+    return Array.isArray(arr) ? arr : [];
+  } catch (e) {
+    return [];
+  }
+}
+
 function formatMsgTime(ts) {
   const d = new Date(ts);
   const hh = String(d.getHours()).padStart(2, '0');
@@ -5123,9 +5149,9 @@ m.timeEl.dataset.tspos = 'below';
 row.appendChild(m.timeEl);
 
     /* 回执在后 */
-    const wasRead = !!(m.receiptEl && m.receiptEl.classList.contains('read'));
-    const readTime = m.readTime || 0;
-    const newReceipt = buildReceiptEl(wasRead);
+const wasRead = !!m.readTime || !!(m.receiptEl && m.receiptEl.classList.contains('read'));
+const readTime = m.readTime || 0;
+const newReceipt = buildReceiptEl(wasRead);
     if (wasRead) {
       newReceipt.classList.add('read');
       newReceipt.dataset.readTime = String(readTime);
@@ -5167,9 +5193,9 @@ m.timeEl.dataset.tspos = cfg.timestampPos;
   }
 
   /* ===== 已读回执（单独位置） ===== */
-  if (showReceipt) {
-    const wasRead = !!(m.receiptEl && m.receiptEl.classList.contains('read'));
-    const readTime = m.readTime || 0;
+if (showReceipt) {
+  const wasRead = !!m.readTime || !!(m.receiptEl && m.receiptEl.classList.contains('read'));
+  const readTime = m.readTime || 0;
 
     /* 完全重建（传入已读状态，让双勾类正确显示单勾/双勾） */
     const newReceipt = buildReceiptEl(wasRead);
@@ -5275,13 +5301,15 @@ function markMineRead(label) {
     updateReceiptText(el, true);
   }
   pendingReceipts = [];
+  saveChatMessages();
 }
 function truncate(s, n) { s = s || ''; return s.length > n ? s.slice(0, n) + '…' : s; }
 
 /* ==== 添加消息 ==== */
-function addMsg(text, side, quoteText) {
+function addMsg(text, side, quoteText, opts) {
+  opts = opts || {};
   const id = 'm' + (++msgSeq);
-  const now = Date.now();
+  const now = opts.time || Date.now();
 
   const msg = document.createElement('div'); msg.className = 'msg ' + side; msg.dataset.id = id;
 
@@ -5311,11 +5339,13 @@ function addMsg(text, side, quoteText) {
   chat.appendChild(msg);
 
   /* 构建消息对象（shouldShowTime 先置 false，交由 recomputeShouldShowTime 决定） */
-  const msgObj = {
-    id: id, side: side, text: text, quote: quoteText || null, el: msg,
-    time: now, timeEl: null, receiptEl: null,
-    shouldShowTime: false
-  };
+const msgObj = {
+  id: id, side: side, text: text, quote: quoteText || null, el: msg,
+  time: now,
+  readTime: opts.readTime || 0,
+  timeEl: null, receiptEl: null,
+  shouldShowTime: false
+};
   messages.push(msgObj);
 
   /* 合并模式：新消息成为所在合并组的最后一条，时间戳应转移到它身上；
@@ -5329,7 +5359,8 @@ function addMsg(text, side, quoteText) {
 /* 居中模式下重建分隔条 */
 if (cfg.timestamp && cfg.timestampPos === 'center') rebuildCenterSeps();
 
-if (side === 'them') markMineRead('已读');
+if (side === 'them' && !opts.restore) markMineRead('已读');
+  if (!opts.skipSave) saveChatMessages();
   chat.scrollTop = chat.scrollHeight;
   return id;
 }
@@ -5350,6 +5381,7 @@ function removeMessage(id) {
   const changed = recomputeShouldShowTime();
   changed.forEach(prev => { if (prev.el) reflowMsgNode(prev); });
   if (cfg.timestamp && cfg.timestampPos === 'center') rebuildCenterSeps();
+  saveChatMessages();
 }
 
 function pickCard() { const pool = allActiveTexts(); if (!pool.length) return '…'; return pool[Math.floor(Math.random() * pool.length)]; }
@@ -5550,9 +5582,28 @@ function renderFavorites() {
   renderFavorites();
   renderMailPage();
   updateMultiBar();
-  syncNoticeModeUI();
+syncNoticeModeUI();
 
-  setTimeout(processPendingLetters, 500);
+(function restoreChatMessages() {
+  const saved = loadChatMessages();
+  saved.forEach(item => {
+    if (!item || !item.text) return;
+    addMsg(
+      item.text,
+      item.side === 'me' ? 'me' : 'them',
+      item.quote || null,
+      {
+        time: item.time || Date.now(),
+        readTime: item.readTime || 0,
+        restore: true,
+        skipSave: true
+      }
+    );
+  });
+  saveChatMessages();
+})();
+
+setTimeout(processPendingLetters, 500);
 
   (function initCal() { calStart = startOfWeek(new Date()); ensureThemRecord(todayKey()); })();
 
