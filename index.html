@@ -9522,12 +9522,38 @@ async function importAllBackup(str) {
 const keys = Object.keys(data).filter(k => k.indexOf('zika_') === 0 && typeof data[k] === 'string');
 if (!keys.length) { showToast('未发现可导入的数据'); return; }
 
+// ★ 1. 自动截断过大的聊天记录和信件，防止 localStorage 溢出
+if (data[CHAT_KEY] && data[CHAT_KEY].length > 2 * 1024 * 1024) {
+  try {
+    const arr = JSON.parse(data[CHAT_KEY]);
+    if (Array.isArray(arr)) {
+      data[CHAT_KEY] = JSON.stringify(arr.slice(-100)); // 仅保留最近100条
+    }
+  } catch(e) {}
+}
+if (data[LETTERS_KEY] && data[LETTERS_KEY].length > 1 * 1024 * 1024) {
+  try {
+    const arr = JSON.parse(data[LETTERS_KEY]);
+    if (Array.isArray(arr)) {
+      data[LETTERS_KEY] = JSON.stringify(arr.slice(-50)); // 仅保留最近50封
+    }
+  } catch(e) {}
+}
+
 // ★ 先备份旧值，以便写入失败时回滚，避免导入失败导致原有数据丢失
 const oldValues = {};
 keys.forEach(k => { try { oldValues[k] = localStorage.getItem(k); } catch (e) {} });
 
-// ★ 清空将被覆盖的旧 key，释放 localStorage 空间
-keys.forEach(k => { try { localStorage.removeItem(k); } catch (e) {} });
+// ★ 2. 彻底清理所有 zika_ 开头的旧 key，释放最大 localStorage 空间
+for (let i = localStorage.length - 1; i >= 0; i--) {
+  const k = localStorage.key(i);
+  if (k && k.indexOf('zika_') === 0) {
+    try { localStorage.removeItem(k); } catch (e) {}
+  }
+}
+
+// ★ 3. 给浏览器一点时间回收空间（某些浏览器引擎需要）
+await new Promise(resolve => setTimeout(resolve, 100));
 
 // 按大小升序写入：小的先落地，尽量多成功
 keys.sort((a, b) => (data[a].length || 0) - (data[b].length || 0));
@@ -9555,8 +9581,8 @@ if (failed.length) {
         '<div class="setting-hint" style="font-size:12.5px;line-height:1.8;">' +
         '成功导入 <b>' + count + '</b> 项，' + failed.length + ' 项写入失败（约 ' + totalMB.toFixed(2) + ' MB）：<br>' +
         failed.map(f => '· ' + f.key + '（' + (f.size / 1024).toFixed(0) + ' KB）').join('<br>') +
-        '<br><br>图片类数据已成功写入 IndexedDB；文本类数据因 localStorage 5MB 上限未能全部写入。<br>' +
-        '<b>建议先清理聊天记录 / 信件后重新导入</b>，或截图反馈 key 名。' +
+        '<br><br>图片类数据已成功写入 IndexedDB；<b>文本类数据（如聊天记录、信件等）在剥离图片后依然超出了浏览器的 5MB 存储上限</b>，导致部分文本写入失败。<br>' +
+        '<b>系统已尝试自动清理旧缓存并截断过长的聊天记录，但依然空间不足。建议先在设置中手动清理部分聊天记录 / 信件后重新导入。</b>' +
         '</div>';
     },
     [
