@@ -2727,7 +2727,7 @@ body.wechat-mode .wp-slider-value { color: var(--wx-green-d); }
    Toast & 遮罩 & 抽屉
    ============================================================ */
 .toast {
-  position: fixed; left: 50%; bottom: 120px; z-index: 90;
+  position: fixed; left: 50%; bottom: 120px; z-index: 400;
   padding: 9px 18px; font-size: 12.5px; color: #fff; border-radius: 999px;
   background: rgba(30, 20, 26, .82); transform: translate(-50%, 8px);
   opacity: 0; pointer-events: none;
@@ -5487,7 +5487,7 @@ body.wechat-mode .composer-plus-item.settings-item .cpi-icon {
         <div class="notice-content" id="noticeContent">公告内容加载中…</div>
 
         <div class="notice-foot">
-          <span class="version-badge" id="noticeVersionBadge">v1.3</span>
+          <span class="version-badge" id="noticeVersionBadge">v1.4</span>
           <span class="notice-credit">部分灵感参考 · 🍠 言序</span>
         </div>
       </div>
@@ -6128,81 +6128,85 @@ body.wechat-mode .composer-plus-item.settings-item .cpi-icon {
     </button>
   </div>
 
-  <div class="setting-block" id="cardPanelText">
-    <div id="sysGroupHeadWrap" hidden>
-      <div class="sys-group-head">
-        <div class="sys-group-info">
-          <div class="sys-group-name" id="sysGroupHeadName">系统分组</div>
-          <div class="sys-group-desc">关闭后该分组下系统字卡不再参与随机抽取</div>
-        </div>
-        <span class="sys-group-badge" id="sysGroupHeadBadge">已开启</span>
-        <button class="switch" id="sysGroupHeadSwitch" type="button" role="switch" aria-checked="true" aria-label="开启/关闭该分组">
-          <span class="switch-dot"></span>
-        </button>
-      </div>
-    </div>
-
-    <div class="setting-name">当前分组文本字卡</div>
-    <div class="multi-bar">
-      <button class="select-all-btn" id="selectAllBtn" type="button">
-        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
-        <span id="selectAllText">全选</span>
-      </button>
-      <span class="sel-count" id="selCount">已选 0 张</span>
-    </div>
-    <div class="multi-actions" id="multiActions" hidden>
-      <button class="act-btn" data-act="move" type="button">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7a2 2 0 0 1 2-2h3.5l2 2h7.5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5.5a2 2 0 0 1-2-2V7z"/></svg>
-        <span>移动</span>
-      </button>
-      <button class="act-btn" data-act="block" type="button">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="m6 6 12 12"/></svg>
-        <span>屏蔽</span>
-      </button>
-      <button class="act-btn" data-act="unblock" type="button">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
-        <span>取消屏蔽</span>
-      </button>
-      <button class="act-btn danger" data-act="delete" type="button">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7h15"/><path d="M9.5 7V5.2a1.7 1.7 0 0 1 1.7-1.7h1.6a1.7 1.7 0 0 1 1.7 1.7V7"/><path d="M18 7v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7"/></svg>
-        <span>删除</span>
-      </button>
-    </div>
-    <div class="move-panel" id="movePanel" hidden>
-      <div class="move-title">移动选中字卡到：</div>
-      <div class="move-groups" id="moveGroups"></div>
-    </div>
-    <div class="card-list" id="cardList"></div>
-    <div class="card-add">
-      <input type="text" id="newCardInput" placeholder="输入新字卡…" autocomplete="off" />
-      <button type="button" id="addCardBtn">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
-        <span>添加</span>
-      </button>
-    </div>
-    <div class="card-tools">
-      <button type="button" id="batchToggle">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h8M4 12h13M4 17h6"/></svg>
-        <span>批量添加</span>
-      </button>
-      <button type="button" id="importToggle">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-        <span>导入字卡</span>
-      </button>
-      <button type="button" id="exportToggle">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 0 4 4m-4-4L8 7M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
-        <span>导出字卡</span>
-      </button>
-    </div>
-    <div class="card-batch" id="batchPanel" hidden>
-      <textarea id="batchTextarea" placeholder="每行一张字卡，换行即成为下一张：&#10;早安呀&#10;记得吃早饭&#10;今天也要开心哦"></textarea>
-      <div class="batch-actions">
-        <button type="button" class="primary" id="batchApplyBtn">全部添加</button>
-        <button type="button" class="plain" id="batchClearBtn">清空</button>
-      </div>
-    </div>
-    <input type="file" id="importFile" hidden />
+<!-- ★ 新增：多选操作区，始终显示，可对文本 / 表情包 / 图片 / 拍一拍统一操作 -->
+<div class="setting-block" id="cardMultiBlock">
+  <div class="multi-bar">
+    <button class="select-all-btn" id="selectAllBtn" type="button">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+      <span id="selectAllText">全选</span>
+    </button>
+    <span class="sel-count" id="selCount">已选 0 张</span>
   </div>
+  <div class="multi-actions" id="multiActions" hidden>
+    <button class="act-btn" data-act="move" type="button">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 7a2 2 0 0 1 2-2h3.5l2 2h7.5a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5.5a2 2 0 0 1-2-2V7z"/></svg>
+      <span>移动</span>
+    </button>
+    <button class="act-btn" data-act="block" type="button">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="m6 6 12 12"/></svg>
+      <span>屏蔽</span>
+    </button>
+    <button class="act-btn" data-act="unblock" type="button">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg>
+      <span>取消屏蔽</span>
+    </button>
+    <button class="act-btn danger" data-act="delete" type="button">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 7h15"/><path d="M9.5 7V5.2a1.7 1.7 0 0 1 1.7-1.7h1.6a1.7 1.7 0 0 1 1.7 1.7V7"/><path d="M18 7v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V7"/></svg>
+      <span>删除</span>
+    </button>
+  </div>
+  <div class="move-panel" id="movePanel" hidden>
+    <div class="move-title">移动选中字卡到：</div>
+    <div class="move-groups" id="moveGroups"></div>
+  </div>
+</div>
+
+<div class="setting-block" id="cardPanelText">
+  <div id="sysGroupHeadWrap" hidden>
+    <div class="sys-group-head">
+      <div class="sys-group-info">
+        <div class="sys-group-name" id="sysGroupHeadName">系统分组</div>
+        <div class="sys-group-desc">关闭后该分组下系统字卡不再参与随机抽取</div>
+      </div>
+      <span class="sys-group-badge" id="sysGroupHeadBadge">已开启</span>
+      <button class="switch" id="sysGroupHeadSwitch" type="button" role="switch" aria-checked="true" aria-label="开启/关闭该分组">
+        <span class="switch-dot"></span>
+      </button>
+    </div>
+  </div>
+
+  <div class="setting-name">当前分组文本字卡</div>
+  <div class="card-list" id="cardList"></div>
+  <div class="card-add">
+    <input type="text" id="newCardInput" placeholder="输入新字卡…" autocomplete="off" />
+    <button type="button" id="addCardBtn">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg>
+      <span>添加</span>
+    </button>
+  </div>
+  <div class="card-tools">
+    <button type="button" id="batchToggle">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h8M4 12h13M4 17h6"/></svg>
+      <span>批量添加</span>
+    </button>
+    <button type="button" id="importToggle">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 4-4m-4 4-4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      <span>导入字卡</span>
+    </button>
+    <button type="button" id="exportToggle">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 15V3m0 0 4 4m-4-4L8 7M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+      <span>导出字卡</span>
+    </button>
+  </div>
+  <div class="card-batch" id="batchPanel" hidden>
+    <textarea id="batchTextarea" placeholder="每行一张字卡，换行即成为下一张：&#10;早安呀&#10;记得吃早饭&#10;今天也要开心哦"></textarea>
+    <div class="batch-actions">
+      <button type="button" class="primary" id="batchApplyBtn">全部添加</button>
+      <button type="button" class="plain" id="batchClearBtn">清空</button>
+    </div>
+  </div>
+  <input type="file" id="importFile" hidden />
+</div>
 
   <div class="setting-block" id="cardPanelSticker" hidden>
     <div class="setting-name">当前分组表情包</div>
@@ -6430,7 +6434,7 @@ body.wechat-mode .composer-plus-item.settings-item .cpi-icon {
     </div>
     <div class="setting-block">
       <div class="setting-name">公告预览</div>
-      <div style="margin-bottom:8px;">当前版本：<span class="notice-version-tag" id="noticeVersionTag">v1.3</span></div>
+      <div style="margin-bottom:8px;">当前版本：<span class="notice-version-tag" id="noticeVersionTag">v1.4</span></div>
       <div class="notice-preview" id="noticePreviewText"></div>
       <div class="setting-hint">若想再次阅读完整公告，可随时点击首页「公告」按钮。</div>
     </div>
@@ -6588,6 +6592,72 @@ body.wechat-mode .composer-plus-item.settings-item .cpi-icon {
   </button>
 </div>
 <script>
+/* =========================================================
+   IndexedDB 媒体存储（解决 localStorage 5MB 限制）
+   ========================================================= */
+const IDB_NAME = 'zika_media_v1';
+const IDB_STORE = 'media';
+let _idbPromise = null;
+
+function openIDB() {
+  if (_idbPromise) return _idbPromise;
+  _idbPromise = new Promise((resolve, reject) => {
+    if (!window.indexedDB) { reject(new Error('IndexedDB not supported')); return; }
+    const req = indexedDB.open(IDB_NAME, 1);
+    req.onupgradeneeded = e => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(IDB_STORE)) db.createObjectStore(IDB_STORE, { keyPath: 'id' });
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+  return _idbPromise;
+}
+function idbPut(id, data) {
+  return openIDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(IDB_STORE, 'readwrite');
+    tx.objectStore(IDB_STORE).put({ id, data });
+    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
+  }));
+}
+function idbBulkPut(items) {
+  return openIDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(IDB_STORE, 'readwrite');
+    const store = tx.objectStore(IDB_STORE);
+    items.forEach(it => store.put(it));
+    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
+  }));
+}
+function idbGet(id) {
+  return openIDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(IDB_STORE, 'readonly');
+    const req = tx.objectStore(IDB_STORE).get(id);
+    req.onsuccess = () => res(req.result ? req.result.data : '');
+    req.onerror = () => rej(req.error);
+  })).catch(() => '');
+}
+function idbGetAll() {
+  return openIDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(IDB_STORE, 'readonly');
+    const req = tx.objectStore(IDB_STORE).getAll();
+    req.onsuccess = () => res(req.result || []);
+    req.onerror = () => rej(req.error);
+  })).catch(() => []);
+}
+function idbDelete(id) {
+  return openIDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(IDB_STORE, 'readwrite');
+    tx.objectStore(IDB_STORE).delete(id);
+    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
+  })).catch(() => {});
+}
+function idbClear() {
+  return openIDB().then(db => new Promise((res, rej) => {
+    const tx = db.transaction(IDB_STORE, 'readwrite');
+    tx.objectStore(IDB_STORE).clear();
+    tx.oncomplete = () => res(); tx.onerror = () => rej(tx.error);
+  })).catch(() => {});
+}
   /* =========================================================
      默认字卡库
      ========================================================= */
@@ -6764,9 +6834,9 @@ const DEFAULT_QUOTES = ["月色和雪色之间，你是第三种绝色。","世�
 const DEFAULT_MOODS = ["开心","平静","想你","心动","甜蜜","温柔","期待","满足","安心","慵懒","害羞","有点累","有点烦","小失落","感动","被治愈","元气满满","想抱抱","有点酸","偷偷开心"];
 const DEFAULT_DIARIES = ["今天也很想你，想得有点走神。","窗外的风很好，想和你一起散步。","喝了杯热奶茶，甜得刚刚好，像你。","做了个好梦，醒来发现梦里全是你。","今天遇到一点小事，但一想到你就好了。","翻到你的消息，忍不住多看了几遍。","今天天气很好，适合和你一起出门。","看着窗外的云，忽然很想你。","有点累，但想到你在，就还行。","今天没什么特别的事，就是很想你。","想你的时候会偷偷笑，有点傻。","拍了一张晚霞，想着要发给你看。","今天很安静，安静到只能听见心跳。","翻来覆去睡不着，脑子里都是你。","把想说的话写在纸上，最后还是收了起来。","今天吃了好吃的，可惜你不在。","有点想你，又不太好意思说。","今天也偷偷把喜欢藏在心里啦。","想和你说声晚安，再赖一会儿。","今天心情不错，因为梦到了你。","看着你上次说的话，笑了一下午。","今天走了很多路，腿有点酸，但想你是甜的。","其实也没什么大事，就是想你了。","今天有点委屈，想被你抱一下。","把今天的小开心都攒起来，等你来问。","想和你一起看一场很慢的日落。","今天也没忍住，多看了你两眼。","有你在的每一天，都值得写下来。","今天也认认真真地喜欢你了。","愿你今天也被人温柔以待。"];
 
-  const NOTICE_VERSION = 'v1.3';
-  const NOTICE_HIGHLIGHT = '· 梦角也可以主动拍一拍你啦，可在「回复设置」中配置触发概率。\n· 表情包 / 图片概率独立判断，可分开设置。\n· 全新「通话设置」：主动来电 / 接听概率 / 拒接概率 / 自动挂断概率全部可配。\n· 视频通话界面重新设计，更清爽；新增通话背景壁纸（可调透明度与模糊度）。\n· 微信模式下，+ 面板新增「设置」入口。';
-  const NOTICE_CONTENT = '【本次更新 v1.3】\n1. 新增「梦角主动拍一拍」：\n   - 在「设置 → 回复设置」中可以设置梦角每次回复时先拍一拍你的概率。\n   - 触发时会显示「梦角 拍了拍 我」的系统消息。\n2. 表情包 / 图片概率独立：\n   - 表情包与图片现在按独立概率判断，命中表情包就不再看图片，反之亦然，两者都不命中则发文本字卡。\n3. 全新「通话设置」：\n   - 主动来电总开关、语音来电概率、视频来电概率、检查间隔均可自由调节。\n   - 我主动打电话时，梦角的「接听概率 / 拒接概率 / 无人接听」全部可配。\n   - 通话中梦角的「自动挂断概率」以及挂断时长区间都可设置。\n4. 视频通话界面重设计：\n   - 通话顶部信息更清爽，视频画面采用柔和毛玻璃风格，小窗预览更精致。\n   - 新增翻转摄像头按钮（仅视频通话）。\n5. 通话背景壁纸：\n   - 美化 → 壁纸设置中新增「通话背景壁纸」，可单独调节透明度与模糊度。\n6. 微信 + 面板新增「设置」入口：\n   - 开启仿微信美化后，点击输入框右侧「+」即可直接进入设置。\n\n【功能进展】\n字卡聊天、信箱、拍一拍、语音 / 视频通话界面已全部可用；通话为本地模拟，不读取麦克风或摄像头。\n\n【反馈与建议】\n如果正在使用的你有想要的功能，或者遇到任何问题，欢迎随时反馈。\n你的建议会被认真评估，并纳入后续更新计划。\n\n愿你和爱人使用愉快。';
+const NOTICE_VERSION = 'v1.4';
+const NOTICE_HIGHLIGHT = '· 修复了一些已知的 bug 和错误，整体使用更稳定。\n· 修复待收信件在刷新页面后可能不会自动送达的问题。\n· 优化全量备份导入逻辑，兼容更早期的数据格式。\n· 重新梳理功能列表，方便了解当前已有的能力。';
+const NOTICE_CONTENT = '【本次更新 v1.4】\n1. 修复了一些已知的 bug 和错误，整体使用更稳定流畅。\n   - 修复待收信件在刷新页面后可能不会自动送达的问题，现在会在到达时间准时送达。\n   - 优化全量备份导入逻辑，兼容更早期的数据格式，降低导入失败的概率。\n2. 公告文案更新：重新梳理了当前已有的功能，方便了解和使用。\n\n【现有功能一览】\n· 字卡聊天：支持文本、表情包、图片、拍一拍四种字卡；可自定义分组、屏蔽、导入导出。\n· 系统字卡与自定义字卡：独立管理，可一键关闭系统字卡，回复只使用自定义内容。\n· 回复设置：等待时间、回复条数、表情包 / 图片概率、主动发消息、主动引用、已读回执（文字 / 对勾 / 图案多种样式与位置）、已读不回、时间戳（位置 / 字号 / 合并）。\n· 梦角拍一拍：可设置梦角每次回复时拍一拍你的概率；双击梦角头像也可手动触发拍一拍。\n· 信箱：梦角主动写信、我写信、回信、置顶、引用原信、回信概率与写信时长全部可调。\n· 收藏：长按聊天消息即可收藏，支持多选批量收藏。\n· 通话：语音 / 视频通话界面，支持主动来电、接听 / 拒接 / 自动挂断概率、通话时长统计，可单独设置通话背景壁纸。\n· 壁纸设置：聊天页、首页、情话卡片、纪念日卡片、日历卡片、心电连接卡片、通话界面均可单独设置壁纸，并调节透明度与模糊度。\n· 美化：14 种主题色调、仿微信美化模式、头像与昵称自定义。\n· 首页：日历（记录心情 / 日记）、时钟、心电连接、每日情话、纪念日天数。\n· 字卡设置：文本、表情包、图片、拍一拍四种类型，支持分组管理、批量添加、导入导出。\n· 公告设置：仅更新后首次弹出 / 每次进入都弹出。\n· 数据设置：全量备份导出与导入、清空全部数据。\n\n【说明】\n通话为本地模拟，不读取麦克风或摄像头；所有数据保存在本地浏览器中，建议定期导出备份。\n\n【反馈与建议】\n如果正在使用的你有想要的功能，或者遇到任何问题，欢迎随时反馈。\n你的建议会被认真评估，并纳入后续更新计划。\n\n愿你和爱人使用愉快。';
 
   const splash = document.getElementById('splash');
   const pageHome   = document.getElementById('pageHome');
@@ -7221,10 +7291,14 @@ const DEFAULT_DIARIES = ["今天也很想你，想得有点走神。","窗外的
 
   document.getElementById('chatBackBtn').addEventListener('click', function () { exitMultiMode(); showMainPage('home'); });
   document.getElementById('favBackBtn').addEventListener('click', function () { showMainPage('home'); });
-  document.getElementById('mailBackBtn').addEventListener('click', function () {
-    if (mailViewWrite && !mailViewWrite.hidden) { switchMailView('list'); return; }
-    showMainPage('home');
-  });
+document.getElementById('mailBackBtn').addEventListener('click', function () {
+  if (mailViewWrite && !mailViewWrite.hidden) {
+    replyLetterTarget = null;   // ★ 用户主动退出写信界面时放弃回信目标
+    switchMailView('list');
+    return;
+  }
+  showMainPage('home');
+});
   document.getElementById('beautyBackBtn').addEventListener('click', function () { showMainPage('home'); });
   document.getElementById('chatSettingsBtn').addEventListener('click', openSettings);
   document.getElementById('chatBeautyBtn').addEventListener('click', function () { renderThemes(); renderBeautyAvatars(); renderWallpaperList(); showMainPage('beauty'); });
@@ -7390,7 +7464,10 @@ const DEFAULT_DIARIES = ["今天也很想你，想得有点走神。","窗外的
     dailyQuotes = []; try { const raw = localStorage.getItem(QUOTES_KEY); if (raw) { const arr = JSON.parse(raw); if (Array.isArray(arr)) dailyQuotes = arr.map(t => typeof t === 'string' ? t.trim() : '').filter(t => t.length > 0); } } catch (e) {}
     if (!dailyQuotes.length) dailyQuotes = DEFAULT_QUOTES.slice();
   }
-  function saveQuotes() { try { localStorage.setItem(QUOTES_KEY, JSON.stringify(dailyQuotes)); } catch (e) {} }
+  function saveQuotes() {
+  try { localStorage.setItem(QUOTES_KEY, JSON.stringify(dailyQuotes)); }
+  catch (e) { console.warn('情话保存失败', e); }
+}
   function pickDailyQuote() {
     if (!dailyQuotes.length) return '';
     const d = new Date(); const seed = d.getFullYear() * 372 + (d.getMonth() + 1) * 31 + d.getDate();
@@ -7422,7 +7499,10 @@ const DEFAULT_DIARIES = ["今天也很想你，想得有点走神。","窗外的
     moodCards = []; try { const raw = localStorage.getItem(MOODS_KEY); if (raw) { const arr = JSON.parse(raw); if (Array.isArray(arr)) moodCards = arr.map(t => typeof t === 'string' ? t.trim() : '').filter(t => t.length > 0); } } catch (e) {}
     if (!moodCards.length) moodCards = DEFAULT_MOODS.slice();
   }
-  function saveMoods() { try { localStorage.setItem(MOODS_KEY, JSON.stringify(moodCards)); } catch (e) {} }
+  function saveMoods() {
+  try { localStorage.setItem(MOODS_KEY, JSON.stringify(moodCards)); }
+  catch (e) { console.warn('心情字卡保存失败', e); }
+}
   function renderMoodList() {
     if (!moodList) return;
     moodList.innerHTML = '';
@@ -7447,7 +7527,10 @@ const DEFAULT_DIARIES = ["今天也很想你，想得有点走神。","窗外的
     diaryCards = []; try { const raw = localStorage.getItem(DIARIES_KEY); if (raw) { const arr = JSON.parse(raw); if (Array.isArray(arr)) diaryCards = arr.map(t => typeof t === 'string' ? t.trim() : '').filter(t => t.length > 0); } } catch (e) {}
     if (!diaryCards.length) diaryCards = DEFAULT_DIARIES.slice();
   }
-  function saveDiaries() { try { localStorage.setItem(DIARIES_KEY, JSON.stringify(diaryCards)); } catch (e) {} }
+  function saveDiaries() {
+  try { localStorage.setItem(DIARIES_KEY, JSON.stringify(diaryCards)); }
+  catch (e) { console.warn('日记字卡保存失败', e); }
+}
   function renderDiaryList() {
     if (!diaryList) return;
     diaryList.innerHTML = '';
@@ -7475,7 +7558,10 @@ const DEFAULT_DIARIES = ["今天也很想你，想得有点走神。","窗外的
   function loadRecords() {
     records = {}; try { const raw = localStorage.getItem(RECORDS_KEY); if (raw) { const o = JSON.parse(raw); if (o && typeof o === 'object' && !Array.isArray(o)) records = o; } } catch (e) {}
   }
-  function saveRecords() { try { localStorage.setItem(RECORDS_KEY, JSON.stringify(records)); } catch (e) {} }
+  function saveRecords() {
+  try { localStorage.setItem(RECORDS_KEY, JSON.stringify(records)); }
+  catch (e) { console.warn('日历记录保存失败', e); }
+}
   function pickBySeed(arr, seed) { if (!arr || !arr.length) return ''; let h = (seed * 2654435761) % 2147483647; if (h < 0) h = -h; return arr[h % arr.length]; }
   function ensureThemRecord(key) {
     if (records[key] && records[key].them && records[key].them.diary) return;
@@ -7572,7 +7658,10 @@ const DEFAULT_DIARIES = ["今天也很想你，想得有点走神。","窗外的
     anniv = { name: '', date: '' }; try { const raw = localStorage.getItem(ANNIV_KEY); if (raw) { const o = JSON.parse(raw); if (o && typeof o === 'object') { anniv.name = typeof o.name === 'string' ? o.name.trim() : ''; anniv.date = typeof o.date === 'string' ? o.date : ''; } } } catch (e) {}
     if (!anniv.date) anniv.date = todayStr();
   }
-  function saveAnniv() { try { localStorage.setItem(ANNIV_KEY, JSON.stringify(anniv)); } catch (e) {} }
+  function saveAnniv() {
+  try { localStorage.setItem(ANNIV_KEY, JSON.stringify(anniv)); }
+  catch (e) { console.warn('纪念日保存失败', e); }
+}
   function calcAnnivDays(dateStr) {
     if (!dateStr) return 0; const parts = dateStr.split('-').map(Number); if (parts.length !== 3 || !parts[0] || !parts[1] || !parts[2]) return 0;
     const start = new Date(parts[0], parts[1] - 1, parts[2]); const now = new Date(); const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -8038,16 +8127,59 @@ function loadWallpapers() {
       WP_KEYS.forEach(k => {
         const item = s && s[k];
         if (item && typeof item === 'object') {
-          wallpapers[k].data = typeof item.data === 'string' ? item.data : '';
           wallpapers[k].opacity = clampWpOpacity(numOr(item.opacity, WP_DEFAULT_OPACITY));
           wallpapers[k].blur = clampWpBlur(numOr(item.blur, WP_DEFAULT_BLUR));
+          // 兼容旧格式：内嵌 base64 还没搬进 IDB
+          if (typeof item.data === 'string' && item.data.indexOf('data:') === 0) {
+            wallpapers[k].data = item.data;
+          }
         }
       });
     }
   } catch (e) {}
   applyAllWallpapers();
+  // 异步从 IDB 补回壁纸（localStorage 存 opacity/blur，IDB 存 base64）
+  Promise.all(WP_KEYS.map(k =>
+    idbGet('wallpaper_' + k).then(d => {
+      if (d) {
+        wallpapers[k].data = d;
+        applyWallpaperToCSS(k);
+        if (k === 'home') ensureHomeWallpaperLayer();
+      }
+    })
+  )).then(() => {
+    if (typeof renderWallpaperList === 'function') renderWallpaperList();
+  });
 }
-function saveWallpapers() { try { localStorage.setItem(WALLPAPER_KEY, JSON.stringify(wallpapers)); } catch (e) {} }
+
+let _wpSaveFailWarned = false;
+let _wpMetaSaveFailWarned = false;
+function saveWallpapers() {
+  const persist = {};
+  WP_KEYS.forEach(k => {
+    persist[k] = { opacity: wallpapers[k].opacity, blur: wallpapers[k].blur };
+    const data = wallpapers[k].data;
+    if (typeof data === 'string' && data.indexOf('data:') === 0) {
+      idbPut('wallpaper_' + k, data).catch(e => {
+        console.warn('壁纸写 IDB 失败', e);
+        if (!_wpSaveFailWarned) {
+          _wpSaveFailWarned = true;
+          showToast('壁纸保存失败，可能存储空间不足');
+        }
+      });
+    } else if (!data) {
+      idbDelete('wallpaper_' + k);
+    }
+  });
+  try { localStorage.setItem(WALLPAPER_KEY, JSON.stringify(persist)); }
+  catch (e) {
+    console.warn('壁纸透明度/模糊设置保存失败', e);
+    if (!_wpMetaSaveFailWarned) {
+      _wpMetaSaveFailWarned = true;
+      showToast('壁纸透明度/模糊设置保存失败');
+    }
+  }
+}
 function clampWpOpacity(v) { if (!isFinite(v)) return WP_DEFAULT_OPACITY; return Math.min(Math.max(Math.round(v), 0), 100); }
 function clampWpBlur(v) { if (!isFinite(v)) return WP_DEFAULT_BLUR; return Math.min(Math.max(Math.round(v), 0), 24); }
 function applyWallpaperToCSS(key) {
@@ -8300,31 +8432,33 @@ function loadCardData() {
 
   if (saved && Array.isArray(saved.groups) && saved.groups.length) {
     const groups = [];
+    const toMigrate = [];   // 旧格式内联 data → 待迁 IDB
     saved.groups.forEach(g => {
       if (!g || typeof g !== 'object') return;
-const type = clampCardType(g.type || 'text');
-let systemGroup;
-if (typeof g.systemGroup === 'boolean') systemGroup = g.systemGroup;
-else {
-  // 只有当卡片自带 system 标记时才判定为系统分组（旧版本兼容兜底），
-  // 不再根据分组名猜测，避免用户自定义的同名分组被误判
-  const anySystemCard = Array.isArray(g.cards) && g.cards.some(c => c && c.system === true);
-  systemGroup = anySystemCard;
-}
-const disabled = !!g.disabled;
+      const type = clampCardType(g.type || 'text');
+      let systemGroup;
+      if (typeof g.systemGroup === 'boolean') systemGroup = g.systemGroup;
+      else systemGroup = Array.isArray(g.cards) && g.cards.some(c => c && c.system === true);
+      const disabled = !!g.disabled;
       const list = [];
       if (Array.isArray(g.cards)) g.cards.forEach(c => {
         if (!c || typeof c !== 'object') return;
         const isSys = typeof c.system === 'boolean' ? c.system : systemGroup;
         if (type === 'text' || type === 'ping') {
           const text = normalizeCardText(c.text); if (!text) return;
-          list.push({ id: typeof c.id === 'string' && c.id ? c.id : uid('c'), text: text, blocked: !!c.blocked, system: isSys });
+          list.push({ id: typeof c.id === 'string' && c.id ? c.id : uid('c'), text, blocked: !!c.blocked, system: isSys });
         } else {
-          const data = typeof c.data === 'string' ? c.data : '';
-          if (!data) return;
+          let data = '', mediaId = '';
+          if (typeof c.mediaId === 'string' && c.mediaId) {
+            mediaId = c.mediaId;
+          } else if (typeof c.data === 'string' && c.data.startsWith('data:')) {
+            mediaId = (typeof c.id === 'string' && c.id) ? c.id : uid('c');
+            data = c.data;
+            toMigrate.push({ id: mediaId, data: c.data });
+          }
+          if (!mediaId) return;
           list.push({
-            id: typeof c.id === 'string' && c.id ? c.id : uid('c'),
-            data: data,
+            id: mediaId, mediaId, data,
             name: typeof c.name === 'string' ? c.name.slice(0, 20) : '',
             blocked: !!c.blocked, system: isSys
           });
@@ -8333,8 +8467,7 @@ const disabled = !!g.disabled;
       groups.push({
         id: typeof g.id === 'string' && g.id ? g.id : uid('g'),
         name: typeof g.name === 'string' && g.name.trim() ? g.name.trim() : '未命名分组',
-        type: type, systemGroup: systemGroup, disabled: disabled,
-        cards: list
+        type, systemGroup, disabled, cards: list
       });
     });
     ['custom', 'system'].forEach(sc => {
@@ -8343,9 +8476,7 @@ const disabled = !!g.disabled;
           groups.push({
             id: uid('g'),
             name: (sc === 'system' ? '默认' : '我的') + CARD_TYPE_LABEL[tp],
-            type: tp,
-            systemGroup: sc === 'system',
-            disabled: false, cards: []
+            type: tp, systemGroup: sc === 'system', disabled: false, cards: []
           });
         }
       });
@@ -8356,15 +8487,61 @@ const disabled = !!g.disabled;
     const validIds = groupsOfType(activeType, activeScope).map(g => g.id);
     const savedActive = saved.activeGroupId;
     cardData.activeGroupId = validIds.indexOf(savedActive) >= 0 ? savedActive : (validIds[0] || '');
-    return;
+
+    // 旧格式迁移：先写 IDB，成功后再重存 localStorage（剥离 data）
+    if (toMigrate.length) {
+      return idbBulkPut(toMigrate)
+        .then(() => { saveCardData(); })
+        .catch(e => { console.warn('旧数据迁移到 IDB 失败，保留原格式', e); });
+    }
+    return Promise.resolve();
   }
   cardData = buildDefaultCardData();
   saveCardData();
+  return Promise.resolve();
 }
 function saveCardData() {
-  try { localStorage.setItem(CARDS_KEY, JSON.stringify(cardData)); } catch (e) {}
+  const toIdb = [];
+  const persistGroups = cardData.groups.map(g => ({
+    id: g.id, name: g.name, type: g.type,
+    systemGroup: !!g.systemGroup, disabled: !!g.disabled,
+    cards: (g.cards || []).map(c => {
+      if (g.type === 'text' || g.type === 'ping') {
+        return { id: c.id, text: c.text, blocked: !!c.blocked, system: !!c.system };
+      }
+      // sticker / image：data 写 IDB，localStorage 只留 mediaId
+      const card = { id: c.id, name: c.name || '', blocked: !!c.blocked, system: !!c.system, mediaId: c.id };
+      if (c.data && c.data.startsWith('data:')) toIdb.push({ id: c.id, data: c.data });
+      return card;
+    })
+  }));
+
+  if (toIdb.length) idbBulkPut(toIdb).catch(e => console.warn('IDB 写入失败', e));
+
+  const persist = {
+    groups: persistGroups,
+    activeGroupId: cardData.activeGroupId,
+    activeType: cardData.activeType,
+    activeScope: cardData.activeScope
+  };
+  try { localStorage.setItem(CARDS_KEY, JSON.stringify(persist)); }
+  catch (e) { console.error(e); showToast('字卡保存失败：存储空间不足'); }
   try { localStorage.setItem('zika_card_type_v1', cardData.activeType); } catch (e) {}
   try { localStorage.setItem(CARD_SCOPE_KEY, cardData.activeScope); } catch (e) {}
+}
+
+function hydrateCardData() {
+  const pending = [];
+  cardData.groups.forEach(g => {
+    if (g.type !== 'sticker' && g.type !== 'image') return;
+    (g.cards || []).forEach(c => { if (c.mediaId && !c.data) pending.push(c); });
+  });
+  if (!pending.length) return Promise.resolve();
+  return Promise.all(pending.map(c => idbGet(c.mediaId).then(d => { c.data = d || ''; })))
+    .then(() => {
+      if (typeof renderCardTypeUI === 'function') renderCardTypeUI();
+      if (typeof renderMediaGrid === 'function') { renderMediaGrid('sticker'); renderMediaGrid('image'); }
+    });
 }
 
 function groupsOfType(type, scope) {
@@ -8399,6 +8576,7 @@ function switchCardType(type) {
   }
   selectedIds.clear();
   if (movePanel) movePanel.hidden = true;
+  if (batchPanel) batchPanel.hidden = true;
   saveCardData();
   renderCardTypeUI();
   renderGroups();
@@ -8609,15 +8787,29 @@ function renderGroups() {
     updateMultiUI();
   }
 
-  function updateMultiUI() {
-    if (!selCount) return;
-    const n = selectedIds.size;
-    selCount.textContent = '已选 ' + n + ' 张';
-    if (multiActions) multiActions.hidden = n === 0;
-    if (n === 0 && movePanel) movePanel.hidden = true;
-    const g = getActiveGroup(); const total = g ? g.cards.length : 0;
-    if (selectAllText) selectAllText.textContent = (total > 0 && n === total) ? '取消全选' : '全选';
+function updateMultiUI() {
+  if (!selCount) return;
+  const n = selectedIds.size;
+  selCount.textContent = '已选 ' + n + ' 张';
+  if (multiActions) multiActions.hidden = n === 0;
+  if (n === 0 && movePanel) movePanel.hidden = true;
+
+  // ★ 新增：根据当前卡片类型，显示 / 隐藏相关操作按钮
+  if (multiActions) {
+    const moveBtn    = multiActions.querySelector('[data-act="move"]');
+    const blockBtn   = multiActions.querySelector('[data-act="block"]');
+    const unblockBtn = multiActions.querySelector('[data-act="unblock"]');
+    const type = cardData.activeType;
+    // 移动仅对文本和拍一拍有意义（贴纸 / 图片移动会丢失 IDB 引用，暂不开放）
+    if (moveBtn)    moveBtn.style.display    = (type === 'text' || type === 'ping') ? '' : 'none';
+    // 屏蔽 / 取消屏蔽对四种类型都有效
+    if (blockBtn)   blockBtn.style.display   = '';
+    if (unblockBtn) unblockBtn.style.display = '';
   }
+
+  const g = getActiveGroup(); const total = g ? g.cards.length : 0;
+  if (selectAllText) selectAllText.textContent = (total > 0 && n === total) ? '取消全选' : '全选';
+}
 
   if (addCardBtn) addCardBtn.addEventListener('click', () => {
     const t = normalizeCardText(newCardInput.value); if (!t) return;
@@ -8652,20 +8844,78 @@ function renderGroups() {
     saveCardData(); renderGroups(); renderCards(); renderCardTypeUI();
   });
 
-  if (selectAllBtn) selectAllBtn.addEventListener('click', () => {
-    const g = getActiveGroup(); if (!g) return;
-    if (selectedIds.size === g.cards.length && g.cards.length > 0) selectedIds.clear();
-    else { selectedIds.clear(); g.cards.forEach(c => selectedIds.add(c.id)); }
+if (selectAllBtn) selectAllBtn.addEventListener('click', () => {
+  const g = getActiveGroup(); if (!g) return;
+  if (selectedIds.size === g.cards.length && g.cards.length > 0) selectedIds.clear();
+  else { selectedIds.clear(); g.cards.forEach(c => selectedIds.add(c.id)); }
+  // ★ 根据当前类型刷新对应面板
+  if (cardData.activeType === 'text') {
     renderCards();
-  });
-  if (multiActions) multiActions.addEventListener('click', (e) => {
-    const btn = e.target.closest('.act-btn'); if (!btn) return;
-    const act = btn.dataset.act; const g = getActiveGroup(); if (!g || selectedIds.size === 0) return;
-    if (act === 'move') { renderMoveGroups(); movePanel.hidden = !movePanel.hidden; return; }
-    if (act === 'block')   { g.cards.forEach(c => { if (selectedIds.has(c.id)) c.blocked = true; });  saveCardData(); renderCards(); return; }
-    if (act === 'unblock') { g.cards.forEach(c => { if (selectedIds.has(c.id)) c.blocked = false; }); saveCardData(); renderCards(); return; }
-    if (act === 'delete')  { g.cards = g.cards.filter(c => !selectedIds.has(c.id)); selectedIds.clear(); saveCardData(); renderGroups(); renderCards(); renderCardTypeUI(); return; }
-  });
+  } else if (cardData.activeType === 'sticker' || cardData.activeType === 'image') {
+    renderMediaGrid(cardData.activeType);
+  } else if (cardData.activeType === 'ping') {
+    renderPingList();
+  }
+  updateMultiUI();
+});
+
+if (multiActions) multiActions.addEventListener('click', (e) => {
+  const btn = e.target.closest('.act-btn'); if (!btn) return;
+  const act = btn.dataset.act; const g = getActiveGroup(); if (!g || selectedIds.size === 0) return;
+
+  if (act === 'move') {
+    renderMoveGroups();
+    movePanel.hidden = !movePanel.hidden;
+    return;
+  }
+
+  if (act === 'block') {
+    g.cards.forEach(c => { if (selectedIds.has(c.id)) c.blocked = true; });
+    saveCardData();
+    // ★ 根据当前类型刷新对应面板
+    if (cardData.activeType === 'text') renderCards();
+    else if (cardData.activeType === 'sticker' || cardData.activeType === 'image') renderMediaGrid(cardData.activeType);
+    else if (cardData.activeType === 'ping') renderPingList();
+    updateMultiUI();
+    showToast('已屏蔽选中项');
+    return;
+  }
+
+  if (act === 'unblock') {
+    g.cards.forEach(c => { if (selectedIds.has(c.id)) c.blocked = false; });
+    saveCardData();
+    if (cardData.activeType === 'text') renderCards();
+    else if (cardData.activeType === 'sticker' || cardData.activeType === 'image') renderMediaGrid(cardData.activeType);
+    else if (cardData.activeType === 'ping') renderPingList();
+    updateMultiUI();
+    showToast('已取消屏蔽');
+    return;
+  }
+
+  if (act === 'delete') {
+    const deletedCount = selectedIds.size;
+    // ★ 兼容两种媒体 id：优先 mediaId，其次 id（saveCardData 会把 id 写入 mediaId）
+    g.cards.forEach(c => {
+      if (selectedIds.has(c.id)) {
+        const mediaId = c.mediaId || (c.data ? c.id : '');
+        if (mediaId) idbDelete(mediaId);
+      }
+    });
+    g.cards = g.cards.filter(c => !selectedIds.has(c.id));
+    selectedIds.clear();
+    saveCardData();
+    renderGroups();
+    // ★ 根据当前类型刷新所有相关面板
+    if (cardData.activeType === 'text') renderCards();
+    else if (cardData.activeType === 'sticker') renderMediaGrid('sticker');
+    else if (cardData.activeType === 'image') renderMediaGrid('image');
+    else if (cardData.activeType === 'ping') renderPingList();
+    renderCardTypeUI();
+    updateMultiUI();
+    showToast('已删除 ' + deletedCount + ' 张');
+    return;
+  }
+});
   function renderMoveGroups() {
     moveGroups.innerHTML = '';
     const currentId = cardData.activeGroupId;
@@ -8783,13 +9033,18 @@ function renderGroups() {
       grid.appendChild(empty);
       return;
     }
-    activeGroup.cards.forEach(card => {
-      const cell = document.createElement('div');
-      cell.className = 'media-cell' + (selectedIds.has(card.id) ? ' selected' : '');
-      cell.dataset.id = card.id;
-      const img = document.createElement('img');
-      img.src = card.data; img.alt = '';
-      cell.appendChild(img);
+activeGroup.cards.forEach(card => {
+  const cell = document.createElement('div');
+  cell.className = 'media-cell' + (selectedIds.has(card.id) ? ' selected' : '');
+  cell.dataset.id = card.id;
+  const img = document.createElement('img');
+  img.alt = '';
+  if (card.data) img.src = card.data;
+  else {
+    img.style.background = 'var(--accent-lighter)';
+    img.style.opacity = '.4';
+  }
+  cell.appendChild(img);
       if (card.name) {
         const nm = document.createElement('div'); nm.className = 'mc-name'; nm.textContent = card.name;
         cell.appendChild(nm);
@@ -9001,18 +9256,34 @@ function renderGroups() {
   if (importToggle) importToggle.addEventListener('click', () => { importFile.value = ''; importFile.click(); });
   if (importFile) importFile.addEventListener('change', () => { const file = importFile.files && importFile.files[0]; if (file) handleImportFile(file); });
 
-  function buildCardsBackup() {
-    return {
-      type: 'zika_cards_backup', version: 3, exportedAt: new Date().toISOString(),
-      groups: cardData.groups.map(g => ({
-        name: g.name, type: g.type, systemGroup: !!g.systemGroup, disabled: !!g.disabled,
-        cards: g.cards.map(c => {
-          if (g.type === 'text' || g.type === 'ping') return { text: c.text, blocked: !!c.blocked, system: !!c.system };
-          return { data: c.data, name: c.name || '', blocked: !!c.blocked, system: !!c.system };
-        })
-      }))
-    };
-  }
+async function buildCardsBackup() {
+  const all = await idbGetAll();
+  const mediaMap = {};
+  all.forEach(it => { mediaMap[it.id] = it.data; });
+  return {
+    type: 'zika_cards_backup', version: 5, exportedAt: new Date().toISOString(),
+    groups: cardData.groups.map(g => ({
+      id: g.id,
+      name: g.name,
+      type: g.type,
+      systemGroup: !!g.systemGroup,
+      disabled: !!g.disabled,
+      cards: g.cards.map(c => {
+        if (g.type === 'text' || g.type === 'ping') {
+          return { id: c.id, text: c.text, blocked: !!c.blocked, system: !!c.system };
+        }
+        return {
+          id: c.id,
+          mediaId: c.mediaId || c.id,
+          data: c.data || mediaMap[c.mediaId] || '',
+          name: c.name || '',
+          blocked: !!c.blocked,
+          system: !!c.system
+        };
+      })
+    }))
+  };
+}
   function downloadFile(filename, content, mime) {
     try {
       const blob = new Blob([content], { type: mime || 'application/json;charset=utf-8' });
@@ -9026,59 +9297,305 @@ function renderGroups() {
     const d = new Date(); const pad = n => String(n).padStart(2, '0');
     return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + '_' + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds());
   }
-  if (exportToggle) exportToggle.addEventListener('click', () => {
-    const backup = buildCardsBackup();
+if (exportToggle) exportToggle.addEventListener('click', async () => {
+  try {
+    const backup = await buildCardsBackup();
     const name = 'zika_cards_' + timestampForFile() + '.json';
     downloadFile(name, JSON.stringify(backup, null, 2));
     showToast('字卡已导出，请到本地查看');
-  });
+  } catch (e) { showToast('导出失败'); }
+});
 
   const MAIL_SETTINGS_KEY = 'zika_mail_settings_v1';
   const MAIL_PENDING_KEY  = 'zika_mail_pending_v1';
   const MAIL_DAILY_KEY    = 'zika_mail_daily_v1';
   const MAIL_READ_KEY     = 'zika_mail_read_v1';
 
-  const ALL_KNOWN_KEYS = [
-    STORE_KEY, CALL_SETTINGS_KEY, CARDS_KEY, 'zika_card_type_v1', CARD_SCOPE_KEY, WALLPAPER_KEY, WECHAT_MODE_KEY,
-    FAV_KEY, QUOTES_KEY, MOODS_KEY, DIARIES_KEY, RECORDS_KEY,
-    ANNIV_KEY, LETTERS_KEY, THEME_KEY, MSG_AVATAR_KEY, AVATAR_ME_KEY, AVATAR_THEM_KEY, NAME_ME_KEY, NAME_THEM_KEY,
-    NOTICE_MODE_KEY, NOTICE_SEEN_KEY, MAIL_SETTINGS_KEY, MAIL_PENDING_KEY, MAIL_DAILY_KEY, MAIL_READ_KEY,
-    LETTER_SETTINGS_KEY, CHAT_KEY, PING_SETTINGS_KEY,
-    SYS_CARDS_ENABLED_KEY,
-    'zika_mail_draft_v1'
-  ];
-  function buildAllBackup() {
-    const data = {};
-    ALL_KNOWN_KEYS.forEach(k => { try { const v = localStorage.getItem(k); if (v !== null) data[k] = v; } catch (e) {} });
-    return { type: 'zika_full_backup', version: 4, exportedAt: new Date().toISOString(), data: data };
+const ALL_KNOWN_KEYS = [
+  STORE_KEY, CALL_SETTINGS_KEY, CARDS_KEY, 'zika_card_type_v1', CARD_SCOPE_KEY, WALLPAPER_KEY, WECHAT_MODE_KEY,
+  FAV_KEY, QUOTES_KEY, MOODS_KEY, DIARIES_KEY, RECORDS_KEY,
+  ANNIV_KEY, LETTERS_KEY, THEME_KEY, MSG_AVATAR_KEY, AVATAR_ME_KEY, AVATAR_THEM_KEY, NAME_ME_KEY, NAME_THEM_KEY,
+  NOTICE_MODE_KEY, NOTICE_SEEN_KEY, MAIL_SETTINGS_KEY, MAIL_PENDING_KEY, MAIL_DAILY_KEY, MAIL_READ_KEY,
+  LETTER_SETTINGS_KEY, CHAT_KEY, PING_SETTINGS_KEY,
+  SYS_CARDS_ENABLED_KEY,
+  'zika_mail_draft_v1',
+  // ★ 新增：拍一拍迁移 flag，避免导入备份后重复触发迁移
+  PING_MIGRATION_FLAG_KEY, NEW_PING_DEFAULTS_FLAG, PING_TEXT_RENAME_FLAG,
+  PING_DEFAULTS_V3_FLAG, PING_REMOVE_BAD_FLAG
+];
+async function buildAllBackup() {
+  const data = {};
+  ALL_KNOWN_KEYS.forEach(k => { try { const v = localStorage.getItem(k); if (v !== null) data[k] = v; } catch (e) {} });
+
+  // 从 IDB 取出所有媒体，合并回各自数据
+  const allIdb = await idbGetAll();
+  const mediaMap = {};
+  allIdb.forEach(it => { mediaMap[it.id] = it.data; });
+
+  if (data[CARDS_KEY]) {
+    try {
+      const parsed = JSON.parse(data[CARDS_KEY]);
+      if (parsed && Array.isArray(parsed.groups)) {
+        parsed.groups.forEach(g => {
+          if (g.type === 'sticker' || g.type === 'image') {
+            (g.cards || []).forEach(c => { if (c.mediaId && mediaMap[c.mediaId]) c.data = mediaMap[c.mediaId]; });
+          }
+        });
+        data[CARDS_KEY] = JSON.stringify(parsed);
+      }
+    } catch (e) { console.warn('合并字卡图片失败', e); }
   }
-  if (exportAllBtn) exportAllBtn.addEventListener('click', () => {
-    const backup = buildAllBackup();
+
+  if (data[CHAT_KEY]) {
+    try {
+      const arr = JSON.parse(data[CHAT_KEY]);
+      if (Array.isArray(arr)) {
+        arr.forEach(item => {
+          if ((item.type === 'sticker' || item.type === 'image') && item.mediaId && mediaMap[item.mediaId]) {
+            item.media = mediaMap[item.mediaId];
+          }
+        });
+        data[CHAT_KEY] = JSON.stringify(arr);
+      }
+    } catch (e) { console.warn('合并聊天图片失败', e); }
+  }
+
+  if (data[WALLPAPER_KEY]) {
+    try {
+      const wp = JSON.parse(data[WALLPAPER_KEY]);
+      WP_KEYS.forEach(k => {
+        if (wp[k] && mediaMap['wallpaper_' + k]) wp[k].data = mediaMap['wallpaper_' + k];
+      });
+      data[WALLPAPER_KEY] = JSON.stringify(wp);
+    } catch (e) { console.warn('合并壁纸失败', e); }
+  }
+
+  if (data[FAV_KEY]) {
+    try {
+      const arr = JSON.parse(data[FAV_KEY]);
+      if (Array.isArray(arr)) {
+        arr.forEach(f => {
+          if ((f.type === 'sticker' || f.type === 'image') && f.mediaId && mediaMap[f.mediaId]) {
+            f.media = mediaMap[f.mediaId];
+          }
+        });
+        data[FAV_KEY] = JSON.stringify(arr);
+      }
+    } catch (e) { console.warn('合并收藏图片失败', e); }
+  }
+
+  return { type: 'zika_full_backup', version: 5, exportedAt: new Date().toISOString(), data };
+}
+  if (exportAllBtn) exportAllBtn.addEventListener('click', async () => {
+  showToast('正在打包数据…');
+  try {
+    const backup = await buildAllBackup();
     const name = 'zika_full_backup_' + timestampForFile() + '.json';
     downloadFile(name, JSON.stringify(backup, null, 2));
     showToast('全量数据已导出');
-  });
-  function importAllBackup(jsonText) {
-    let parsed = null;
-    try { parsed = JSON.parse(jsonText); } catch (err) { showToast('文件格式错误，无法解析'); return; }
-    let data = null;
-    if (parsed && parsed.type === 'zika_full_backup' && parsed.data && typeof parsed.data === 'object') {
-      data = parsed.data;
-    } else if (parsed && typeof parsed === 'object') {
-      const keys = Object.keys(parsed);
-      const isKV = keys.some(k => k.indexOf('zika_') === 0);
-      if (isKV) data = parsed;
-    }
-    if (!data) { showToast('这不是有效的全量备份文件'); return; }
-    let count = 0;
-    Object.keys(data).forEach(k => {
-      if (k.indexOf('zika_') !== 0) return;
-      try { localStorage.setItem(k, data[k]); count++; } catch (e) {}
-    });
-    if (count === 0) { showToast('未发现可导入的数据'); return; }
-    showToast('已导入 ' + count + ' 项数据，即将刷新页面');
-    setTimeout(() => location.reload(), 800);
+  } catch (e) { showToast('导出失败'); }
+});
+
+async function importAllBackup(str) {
+  // ★ 修改：用 Blob 计算真实字节数（UTF-8），而不是字符数
+  let byteSize = 0;
+  try { byteSize = new Blob([str]).size; } catch (e) { byteSize = str.length; }
+  const sizeMB = byteSize / 1048576;
+  if (byteSize > 80 * 1024 * 1024) {
+    showToast('备份约 ' + sizeMB.toFixed(1) + ' MB，处理可能失败，建议在电脑上操作');
+  } else if (byteSize > 50 * 1024 * 1024) {
+    showToast('备份约 ' + sizeMB.toFixed(1) + ' MB，处理需要一点时间');
   }
+
+  let backup;
+  try { backup = JSON.parse(str); }
+  catch (e) { showToast('不是有效的 JSON 文件'); return; }
+
+  if (!backup || backup.type !== 'zika_full_backup' || !backup.data || typeof backup.data !== 'object') {
+    showToast('这不是有效的全量备份文件');
+    return;
+  }
+
+  const data = backup.data;
+  const mediaItems = [];   // {id, data} 待写 IDB
+
+  // ① 字卡 sticker / image
+  if (typeof data[CARDS_KEY] === 'string') {
+    try {
+      const parsed = JSON.parse(data[CARDS_KEY]);
+      if (parsed && Array.isArray(parsed.groups)) {
+        parsed.groups.forEach(g => {
+          if (!g || (g.type !== 'sticker' && g.type !== 'image')) return;
+(g.cards || []).forEach(c => {
+  if (!c) return;
+  if (typeof c.data === 'string' && c.data.indexOf('data:') === 0) {
+    let mediaId = c.mediaId || c.id;
+    if (!mediaId) {
+      mediaId = 'card_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+      c.id = mediaId;
+    }
+    c.mediaId = mediaId;
+    mediaItems.push({ id: mediaId, data: c.data });
+    delete c.data;
+  }
+});
+        });
+        data[CARDS_KEY] = JSON.stringify(parsed);
+      }
+    } catch (e) { console.warn('字卡解析失败', e); }
+  }
+
+  // ② 聊天记录 media
+  if (typeof data[CHAT_KEY] === 'string') {
+    try {
+      const arr = JSON.parse(data[CHAT_KEY]);
+      if (Array.isArray(arr)) {
+        arr.forEach((item, idx) => {
+          if (!item) return;
+          if (item.type !== 'sticker' && item.type !== 'image') return;
+          if (typeof item.media === 'string' && item.media.indexOf('data:') === 0) {
+            const mediaId = item.mediaId || ('chat_' + idx + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6));
+            item.mediaId = mediaId;
+            mediaItems.push({ id: mediaId, data: item.media });
+            delete item.media;
+          }
+        });
+        data[CHAT_KEY] = JSON.stringify(arr);
+      }
+    } catch (e) { console.warn('聊天记录解析失败（不影响其他数据）', e); }
+  }
+
+  // ③ 壁纸
+  if (typeof data[WALLPAPER_KEY] === 'string') {
+    try {
+      const wp = JSON.parse(data[WALLPAPER_KEY]);
+      if (wp && typeof wp === 'object') {
+        WP_KEYS.forEach(k => {
+          const item = wp[k];
+          if (!item || typeof item !== 'object') return;
+          if (typeof item.data === 'string' && item.data.indexOf('data:') === 0) {
+            mediaItems.push({ id: 'wallpaper_' + k, data: item.data });
+            delete item.data;
+          }
+        });
+        data[WALLPAPER_KEY] = JSON.stringify(wp);
+      }
+    } catch (e) { console.warn('壁纸解析失败', e); }
+  }
+
+  // ④ 收藏 media
+  if (typeof data[FAV_KEY] === 'string') {
+    try {
+      const arr = JSON.parse(data[FAV_KEY]);
+      if (Array.isArray(arr)) {
+        arr.forEach((f, idx) => {
+          if (!f) return;
+          if (f.type !== 'sticker' && f.type !== 'image') return;
+          if (typeof f.media === 'string' && f.media.indexOf('data:') === 0) {
+            const mediaId = f.mediaId || ('fav_' + idx + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6));
+            f.mediaId = mediaId;
+            mediaItems.push({ id: mediaId, data: f.media });
+            delete f.media;
+          }
+        });
+        data[FAV_KEY] = JSON.stringify(arr);
+      }
+    } catch (e) { console.warn('收藏解析失败', e); }
+  }
+
+  // ★ 修改：先把新媒体写入 IDB（put 幂等，不会影响旧数据）
+  try {
+    if (mediaItems.length) {
+      showToast('正在恢复 ' + mediaItems.length + ' 张图片…');
+      const BATCH = 50;
+      for (let i = 0; i < mediaItems.length; i += BATCH) {
+        await idbBulkPut(mediaItems.slice(i, i + BATCH));
+      }
+    }
+  } catch (e) {
+    console.warn('写入图片数据失败', e);
+    showToast('恢复图片数据失败，旧数据仍然保留，请刷新后重试');
+    return;
+  }
+
+// ② 再写 localStorage（媒体已安全落地）
+const keys = Object.keys(data).filter(k => k.indexOf('zika_') === 0 && typeof data[k] === 'string');
+if (!keys.length) { showToast('未发现可导入的数据'); return; }
+
+// ★ 先备份旧值，以便写入失败时回滚，避免导入失败导致原有数据丢失
+const oldValues = {};
+keys.forEach(k => { try { oldValues[k] = localStorage.getItem(k); } catch (e) {} });
+
+// ★ 清空将被覆盖的旧 key，释放 localStorage 空间
+keys.forEach(k => { try { localStorage.removeItem(k); } catch (e) {} });
+
+// 按大小升序写入：小的先落地，尽量多成功
+keys.sort((a, b) => (data[a].length || 0) - (data[b].length || 0));
+
+const failed = [];
+let count = 0;
+keys.forEach(k => {
+  const value = data[k];
+  try { localStorage.setItem(k, value); count++; }
+  catch (e) {
+    failed.push({ key: k, size: value.length });
+    // ★ 写入失败时尝试回滚旧值，尽量避免丢失原有数据
+    const old = oldValues[k];
+    if (old !== null && old !== undefined) {
+      try { localStorage.setItem(k, old); } catch (e2) {}
+    }
+  }
+});
+
+if (failed.length) {
+  const totalMB = failed.reduce((s, f) => s + f.size, 0) / 1024 / 1024;
+  openModal('导入未完成',
+    body => {
+      body.innerHTML =
+        '<div class="setting-hint" style="font-size:12.5px;line-height:1.8;">' +
+        '成功导入 <b>' + count + '</b> 项，' + failed.length + ' 项写入失败（约 ' + totalMB.toFixed(2) + ' MB）：<br>' +
+        failed.map(f => '· ' + f.key + '（' + (f.size / 1024).toFixed(0) + ' KB）').join('<br>') +
+        '<br><br>图片类数据已成功写入 IndexedDB；文本类数据因 localStorage 5MB 上限未能全部写入。<br>' +
+        '<b>建议先清理聊天记录 / 信件后重新导入</b>，或截图反馈 key 名。' +
+        '</div>';
+    },
+    [
+      { label: '刷新页面', primary: true, onClick: () => { closeModal(); setTimeout(() => location.reload(), 300); } },
+      { label: '取消', onClick: closeModal }
+    ]
+  );
+  return;
+}
+
+  // ③ 全部写入成功后再清理旧媒体（只清理备份覆盖范围内、且不在新集合里的 ID）
+  try {
+    const coversCards = typeof data[CARDS_KEY] === 'string';
+    const coversChat  = typeof data[CHAT_KEY] === 'string';
+    const coversWp    = typeof data[WALLPAPER_KEY] === 'string';
+    const coversFav   = typeof data[FAV_KEY] === 'string';
+    if (coversCards || coversChat || coversWp || coversFav) {
+      const newIds = new Set(mediaItems.map(it => it.id));
+      const oldItems = await idbGetAll();
+      const toDelete = [];
+      oldItems.forEach(it => {
+        const id = it && it.id;
+        if (!id || newIds.has(id)) return;
+        let owned = false;
+        if (id.indexOf('wallpaper_') === 0) owned = coversWp;
+        else if (id.indexOf('fav_') === 0)  owned = coversFav;
+        else if (id.indexOf('chat_') === 0) owned = coversChat;
+        else                                owned = coversCards;
+        if (owned) toDelete.push(id);
+      });
+      for (const id of toDelete) { await idbDelete(id); }
+    }
+  } catch (e) {
+    console.warn('清理旧媒体失败（不影响使用）', e);
+  }
+
+  showToast('已导入 ' + count + ' 项数据，即将刷新页面');
+  setTimeout(() => location.reload(), 800);
+}
   if (importAllBtn) importAllBtn.addEventListener('click', () => { importAllFile.value = ''; importAllFile.click(); });
   if (importAllFile) importAllFile.addEventListener('change', () => {
     const file = importAllFile.files && importAllFile.files[0]; if (!file) return;
@@ -9087,18 +9604,19 @@ function renderGroups() {
     reader.onerror = () => showToast('文件读取失败');
     reader.readAsText(file);
   });
-  if (clearAllBtn) clearAllBtn.addEventListener('click', () => {
-    openModal('清空全部数据',
-      body => { body.innerHTML = '<div class="setting-hint" style="font-size:12.5px;line-height:1.7;">此操作将清除网站保存的全部数据（字卡、设置、头像、壁纸、收藏、信箱、日记、纪念日等），且不可恢复。建议先导出全量备份。</div>'; },
-      [
-        { label: '取消', onClick: closeModal },
-        { label: '确认清空', primary: true, onClick: () => {
-            ALL_KNOWN_KEYS.forEach(k => { try { localStorage.removeItem(k); } catch (e) {} });
-            closeModal(); showToast('已清空，即将刷新页面'); setTimeout(() => location.reload(), 700);
-        }}
-      ]
-    );
-  });
+if (clearAllBtn) clearAllBtn.addEventListener('click', () => {
+  openModal('清空全部数据',
+    body => { body.innerHTML = '<div class="setting-hint" style="font-size:12.5px;line-height:1.7;">此操作将清除网站保存的全部数据（字卡、设置、头像、壁纸、收藏、信箱、日记、纪念日等），且不可恢复。建议先导出全量备份。</div>'; },
+    [
+      { label: '取消', onClick: closeModal },
+      { label: '确认清空', primary: true, onClick: async () => {
+          ALL_KNOWN_KEYS.forEach(k => { try { localStorage.removeItem(k); } catch (e) {} });
+          try { await idbClear(); } catch (e) { console.warn('清空 IDB 失败', e); }
+          closeModal(); showToast('已清空，即将刷新页面'); setTimeout(() => location.reload(), 700);
+      }}
+    ]
+  );
+});
 
   let letters = [];
   let pendingLetters = [];
@@ -9203,11 +9721,20 @@ function renderGroups() {
   }
   function incrementDailyCount() { try { localStorage.setItem(MAIL_DAILY_KEY, JSON.stringify({ date: new Date().toDateString(), count: getDailyCount() + 1 })); } catch (e) {} }
   function loadLetters() { try { const raw = localStorage.getItem(LETTERS_KEY); letters = raw ? JSON.parse(raw) : []; } catch (e) { letters = []; } if (!Array.isArray(letters)) letters = []; }
-  function saveLetters() { try { localStorage.setItem(LETTERS_KEY, JSON.stringify(letters)); } catch (e) {} }
+  function saveLetters() {
+  try { localStorage.setItem(LETTERS_KEY, JSON.stringify(letters)); }
+  catch (e) { console.warn('信件保存失败', e); }
+}
   function loadPendingLetters() { try { const raw = localStorage.getItem(MAIL_PENDING_KEY); pendingLetters = raw ? JSON.parse(raw) : []; } catch (e) { pendingLetters = []; } if (!Array.isArray(pendingLetters)) pendingLetters = []; }
-  function savePendingLetters() { try { localStorage.setItem(MAIL_PENDING_KEY, JSON.stringify(pendingLetters)); } catch (e) {} }
+  function savePendingLetters() {
+  try { localStorage.setItem(MAIL_PENDING_KEY, JSON.stringify(pendingLetters)); }
+  catch (e) { console.warn('待收信件保存失败', e); }
+}
   function loadInboxRead() { try { const raw = localStorage.getItem(MAIL_READ_KEY); inboxReadState = raw ? JSON.parse(raw) : {}; } catch (e) { inboxReadState = {}; } if (!inboxReadState || typeof inboxReadState !== 'object') inboxReadState = {}; }
-  function saveInboxRead() { try { localStorage.setItem(MAIL_READ_KEY, JSON.stringify(inboxReadState)); } catch (e) {} }
+  function saveInboxRead() {
+  try { localStorage.setItem(MAIL_READ_KEY, JSON.stringify(inboxReadState)); }
+  catch (e) { console.warn('收件箱已读状态保存失败', e); }
+}
 
   function formatMailTime(ts) {
     const d = new Date(ts); const now = new Date();
@@ -9272,20 +9799,30 @@ function renderGroups() {
     }
     if (typeof refreshMailBadge === 'function') refreshMailBadge();
   }
-  function scheduleNewLetter(delayMs, replyToId) {
-    const arrivalTime = Date.now() + delayMs;
-    pendingLetters.push({ arrivalTime, replyToId });
-    savePendingLetters();
-    setTimeout(processPendingLetters, delayMs + 1000);
+let pendingLetterTimer = null;
+function scheduleNewLetter(delayMs, replyToId) {
+  const arrivalTime = Date.now() + delayMs;
+  pendingLetters.push({ arrivalTime, replyToId });
+  savePendingLetters();
+  processPendingLetters();
+}
+function processPendingLetters() {
+  let changed = false; const now = Date.now(); const remaining = [];
+  let nextTime = Infinity;
+  pendingLetters.forEach(p => {
+    if (now >= p.arrivalTime) { changed = true; doTriggerNewLetter(p.replyToId); }
+    else {
+      remaining.push(p);
+      if (p.arrivalTime < nextTime) nextTime = p.arrivalTime;
+    }
+  });
+  if (changed) { pendingLetters = remaining; savePendingLetters(); }
+  if (pendingLetterTimer) { clearTimeout(pendingLetterTimer); pendingLetterTimer = null; }
+  if (remaining.length) {
+    const delay = Math.max(0, nextTime - Date.now()) + 500;
+    pendingLetterTimer = setTimeout(processPendingLetters, delay);
   }
-  function processPendingLetters() {
-    let changed = false; const now = Date.now(); const remaining = [];
-    pendingLetters.forEach(p => {
-      if (now >= p.arrivalTime) { changed = true; doTriggerNewLetter(p.replyToId); }
-      else remaining.push(p);
-    });
-    if (changed) { pendingLetters = remaining; savePendingLetters(); }
-  }
+}
   let mailWritingTimer = null;
   let mailTriggerTimer = null;
   function setMailWritingHint(on) { if (mailWritingHint) mailWritingHint.hidden = !on; }
@@ -9305,14 +9842,14 @@ function renderGroups() {
       doTriggerNewLetter();
     }, writeMs);
   }
-  function scheduleMailTriggerLoop() {
-    if (mailTriggerTimer) clearTimeout(mailTriggerTimer);
-    const gapMs = Math.max(60, (parseInt(mailCfg.triggerGap) || 60)) * 60 * 1000;
-    mailTriggerTimer = setTimeout(function () {
-      checkProactiveMail();
-      scheduleMailTriggerLoop();
-    }, gapMs);
-  }
+function scheduleMailTriggerLoop() {
+  if (mailTriggerTimer) clearTimeout(mailTriggerTimer);
+  const gapMs = Math.max(1, (parseInt(mailCfg.triggerGap) || 60)) * 60 * 1000;
+  mailTriggerTimer = setTimeout(function () {
+    checkProactiveMail();
+    scheduleMailTriggerLoop();
+  }, gapMs);
+}
   function refreshMailBadge() {
     if (!mailUnreadBadge) return;
     let unread = 0;
@@ -9332,27 +9869,29 @@ function renderGroups() {
     if (mailTabs) mailTabs.querySelectorAll('.mail-tab-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.mailTab === tab));
     renderMailListView();
   }
-  function switchMailView(view) {
-    if (!mailViewList || !mailViewWrite) return;
-    if (view === 'write') {
-      if (mailTabs) mailTabs.hidden = true;
-      mailViewList.hidden = true;
-      mailViewWrite.hidden = false;
-      if (mailComposeTo)   mailComposeTo.textContent   = getStoredName('them');
-      if (mailComposeFrom) mailComposeFrom.textContent = getStoredName('me');
-      if (mailComposeInput && !mailComposeInput.value.trim()) {
-        const draft = loadDraft();
-        if (draft) mailComposeInput.value = draft;
-      }
-      setTimeout(() => { if (mailComposeInput) mailComposeInput.focus(); }, 80);
-    } else {
-      if (!mailViewWrite.hidden) saveDraftNow();
-      if (mailTabs) mailTabs.hidden = false;
-      mailViewWrite.hidden = true;
-      mailViewList.hidden = false;
-      replyLetterTarget = null;
+function switchMailView(view) {
+  if (!mailViewList || !mailViewWrite) return;
+  if (view === 'write') {
+    if (mailTabs) mailTabs.hidden = true;
+    mailViewList.hidden = true;
+    mailViewWrite.hidden = false;
+    if (mailComposeTo)   mailComposeTo.textContent   = getStoredName('them');
+    if (mailComposeFrom) mailComposeFrom.textContent = getStoredName('me');
+    if (mailComposeInput && !mailComposeInput.value.trim()) {
+      const draft = loadDraft();
+      if (draft) mailComposeInput.value = draft;
     }
+    setTimeout(() => { if (mailComposeInput) mailComposeInput.focus(); }, 80);
+  } else {
+    if (!mailViewWrite.hidden) saveDraftNow();
+    if (mailTabs) mailTabs.hidden = false;
+    mailViewWrite.hidden = true;
+    mailViewList.hidden = false;
+    // ★ 修复：底层视图切换不再清空 replyLetterTarget，
+    //   否则收到新信 / 重新进信箱时，正在写的回信会丢失关联。
+    //   清空逻辑交给明确的业务动作（mailBackBtn / mailWriteBackBtn / mailComposeFab / sendLetter）。
   }
+}
   function renderMailPage() {
     if (mailComposeTo)   mailComposeTo.textContent   = getStoredName('them');
     if (mailComposeFrom) mailComposeFrom.textContent = getStoredName('me');
@@ -9580,8 +10119,16 @@ env.addEventListener('click', (e) => {
       ]
     );
   });
-  if (mailComposeFab) mailComposeFab.addEventListener('click', () => { replyLetterTarget = null; if (mailComposeInput) mailComposeInput.value = ''; switchMailView('write'); });
-  if (mailWriteBackBtn) mailWriteBackBtn.addEventListener('click', () => { switchMailView('list'); });
+  if (mailComposeFab) mailComposeFab.addEventListener('click', () => {
+  replyLetterTarget = null;
+  if (mailComposeInput) mailComposeInput.value = '';
+  clearDraft();
+  switchMailView('write');
+});
+  if (mailWriteBackBtn) mailWriteBackBtn.addEventListener('click', () => {
+  replyLetterTarget = null;   // ★ 用户主动点返回时放弃回信目标
+  switchMailView('list');
+});
   function openMailCtxMenu(lt, isInbox) {
     const isPinned = !!lt.pinned;
     const isRead = isInbox ? !!inboxReadState[lt.id] : true;
@@ -9638,22 +10185,26 @@ env.addEventListener('click', (e) => {
     });
   }
 
-  function buildPingLine(text, byMe) {
-    const meName   = escapeHTML(getStoredName('me'));
-    const themName = escapeHTML(getStoredName('them'));
-    let tpl = (text == null ? '' : String(text)).trim();
-    if (tpl.indexOf('{me}') >= 0 || tpl.indexOf('{them}') >= 0) {
-      const filled = tpl.replace(/\{me\}/g, meName).replace(/\{them\}/g, themName);
-      return { full: filled };
-    }
-    const senderName   = byMe ? meName   : themName;
-    const receiverName = byMe ? themName : meName;
-    if (!tpl) {
-      return { full: senderName + ' 拍了拍 ' + receiverName };
-    }
-    const replaced = tpl.replace(/你/g, receiverName);
-    return { full: senderName + replaced };
+function buildPingLine(text, byMe) {
+  const meName   = escapeHTML(getStoredName('me'));
+  const themName = escapeHTML(getStoredName('them'));
+  let tpl = (text == null ? '' : String(text)).trim();
+  if (tpl.indexOf('{me}') >= 0 || tpl.indexOf('{them}') >= 0) {
+    const filled = tpl.replace(/\{me\}/g, meName).replace(/\{them\}/g, themName);
+    return { full: filled };
   }
+  const senderName   = byMe ? meName   : themName;
+  const receiverName = byMe ? themName : meName;
+  if (!tpl) {
+    return { full: senderName + ' 拍了拍 ' + receiverName };
+  }
+  // ★ 修改：只替换最后一处「你」，避免把「你好呀」之类也替换掉
+  const idx = tpl.lastIndexOf('你');
+  const replaced = idx >= 0
+    ? (tpl.slice(0, idx) + receiverName + tpl.slice(idx + 1))
+    : tpl;
+  return { full: senderName + replaced };
+}
 
   function triggerPing(text, opts) {
     opts = opts || {};
@@ -9698,19 +10249,23 @@ env.addEventListener('click', (e) => {
     } catch (e) {}
   }
 
-  function pingByDoubleClick() {
-    if (!pingSettings.dblEnabled) return;
-    let text = pingSettings.selectedId;
-    if (!text) {
-      const all = allActivePings();
-      if (!all.length) {
-        triggerPing('', { byMe: true });
-        return;
-      }
-      text = all[Math.floor(Math.random() * all.length)];
-    }
-    triggerPing(text, { byMe: true });
+function pingByDoubleClick() {
+  if (!pingSettings.dblEnabled) return;
+  const all = allActivePings();
+  let text = pingSettings.selectedId;
+  // 如果选中的文案已被删除/屏蔽，或系统字卡被关闭，则视为未选择
+  if (text && all.indexOf(text) < 0) {
+    text = '';
   }
+  if (!text) {
+    if (!all.length) {
+      triggerPing('', { byMe: true });
+      return;
+    }
+    text = all[Math.floor(Math.random() * all.length)];
+  }
+  triggerPing(text, { byMe: true });
+}
   function bindPingDoubleTap(el, onSingleTap) {
     if (!el) return;
     let lastTap = 0;
@@ -9784,22 +10339,28 @@ env.addEventListener('click', (e) => {
     return (a + Math.random() * (b - a)) * 1000;
   }
 
-  function setCallRingingUI(isVideo, incoming) {
-    callOverlay.classList.toggle('is-video', !!isVideo);
-    callOverlay.classList.add('show');
-    callMini.classList.remove('show');
-    if (callLabelText) callLabelText.textContent = (incoming ? (isVideo ? '视频来电' : '语音来电') : (isVideo ? '视频通话' : '语音通话'));
-    if (callHangupText) callHangupText.textContent = incoming ? '拒接' : '挂断';
-    if (callMuteBtn) {
-      callMuteBtn.style.display = incoming ? 'none' : '';
-      callMuteBtn.querySelector('.cab-icon').classList.remove('active');
-    }
-    if (callSpeakerBtn) {
-      callSpeakerBtn.style.display = incoming ? 'none' : '';
-      callSpeakerBtn.querySelector('.cab-icon').classList.remove('active');
-    }
-    if (callSwitchCamBtn) callSwitchCamBtn.style.display = incoming ? 'none' : '';
+function setCallRingingUI(isVideo, incoming) {
+  callOverlay.classList.toggle('is-video', !!isVideo);
+  callOverlay.classList.add('show');
+  callMini.classList.remove('show');
+  if (callLabelText) callLabelText.textContent = (incoming ? (isVideo ? '视频来电' : '语音来电') : (isVideo ? '视频通话' : '语音通话'));
+  if (callHangupText) callHangupText.textContent = incoming ? '拒接' : '挂断';
+  if (callMuteBtn) {
+    callMuteBtn.style.display = incoming ? 'none' : '';
+    const muteIcon = callMuteBtn.querySelector('.cab-icon');
+    if (muteIcon) muteIcon.classList.remove('active');
+    const muteLabel = callMuteBtn.querySelector('span:last-child');
+    if (muteLabel) muteLabel.textContent = '静音';
   }
+  if (callSpeakerBtn) {
+    callSpeakerBtn.style.display = incoming ? 'none' : '';
+    const speakerIcon = callSpeakerBtn.querySelector('.cab-icon');
+    if (speakerIcon) speakerIcon.classList.remove('active');
+    const speakerLabel = callSpeakerBtn.querySelector('span:last-child');
+    if (speakerLabel) speakerLabel.textContent = '免提';
+  }
+  if (callSwitchCamBtn) callSwitchCamBtn.style.display = incoming ? 'none' : '';
+}
 
 function startCall(isVideo, opts) {
   opts = opts || {};
@@ -9879,20 +10440,20 @@ function connectCall() {
       if (callMiniTime) callMiniTime.textContent = dur;
     }, 500);
 
-    // 自动挂断逻辑
-    if (callState.autoHangupTimer) clearTimeout(callState.autoHangupTimer);
-    if (callCfg.hangupProb > 0 && Math.random() * 100 < callCfg.hangupProb) {
-      let a = Math.max(1, callCfg.hangupTimeMin);
-      let b = Math.max(a, callCfg.hangupTimeMax);
-      const seconds = a + Math.random() * (b - a);
-      callState.autoHangupTimer = setTimeout(function () {
-        callState.autoHangupTimer = null;
-        if (callState.active) {
-          if (callRejectTip) { callRejectTip.textContent = '对方已挂断'; callRejectTip.classList.add('show'); }
-          setTimeout(function () { if (callRejectTip) callRejectTip.classList.remove('show'); endCall('them-hangup'); }, 700);
-        }
-      }, seconds * 1000);
+// 自动挂断逻辑
+if (callState.autoHangupTimer) clearTimeout(callState.autoHangupTimer);
+if (callCfg.hangupProb > 0 && Math.random() * 100 < callCfg.hangupProb) {
+  let a = Math.max(0, callCfg.hangupTimeMin);
+  let b = Math.max(a, callCfg.hangupTimeMax);
+  const seconds = a + Math.random() * (b - a);
+  callState.autoHangupTimer = setTimeout(function () {
+    callState.autoHangupTimer = null;
+    if (callState.active) {
+      if (callRejectTip) { callRejectTip.textContent = '对方已挂断'; callRejectTip.classList.add('show'); }
+      setTimeout(function () { if (callRejectTip) callRejectTip.classList.remove('show'); endCall('them-hangup'); }, 700);
     }
+  }, seconds * 1000);
+}
   }
 
   function endCall(reason) {
@@ -9906,6 +10467,12 @@ callState.incoming = false;
 callState.minimized = false;
 callOverlay.classList.remove('show');
 callMini.classList.remove('show');
+// ★ 重置胶囊定位，避免下次通话出现在上次拖动位置
+callMini.style.left = '';
+callMini.style.top = '';
+callMini.style.right = '';
+callMini.style.bottom = '';
+callMini.style.cursor = 'grab';
 const accBtn = document.getElementById('callAcceptBtn');
 if (accBtn) accBtn.style.display = 'none';
 
@@ -10087,33 +10654,81 @@ if (accBtn) accBtn.style.display = 'none';
   let pendingReceipts = [];
   const TIME_MERGE_WINDOW = 3 * 60 * 1000;
 
-  function saveChatMessages() {
-    try {
-      const data = messages.slice(-CHAT_MAX).map(m => ({
+function saveChatMessages() {
+  try {
+    const toIdb = [];
+    const msgData = messages.slice(-CHAT_MAX).map(m => {
+      const item = {
         side: m.side,
         type: m.type || 'text',
         text: m.text || '',
-        media: m.media || '',
         mediaName: m.mediaName || '',
+        quote: m.quote || null,
+        time: m.time,
+        readTime: m.readTime || 0
+      };
+      // ★ 修复 2 用：保存自定义已读文案（如「已读不回」）
+      if (m.readText) item.readText = m.readText;
+      if (m.type === 'sticker' || m.type === 'image') {
+        if (m.mediaId) {
+          item.mediaId = m.mediaId;
+          if (typeof m.media === 'string' && m.media.indexOf('data:') === 0 && !m._idbSaved) {
+            toIdb.push({ id: m.mediaId, data: m.media });
+            // ★ 不在推入时立即标记，等 IDB 写入成功后再标记
+          }
+        } else if (typeof m.media === 'string' && m.media.indexOf('data:') === 0) {
+          const newId = 'chat_' + m.id + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+          m.mediaId = newId;
+          item.mediaId = newId;
+          toIdb.push({ id: newId, data: m.media });
+        } else if (m.media) {
+          item.media = m.media;
+        }
+      }
+      return item;
+    });
+
+    if (toIdb.length) idbBulkPut(toIdb).then(() => {
+  // ★ IDB 写入成功后才标记已保存，避免失败后永久跳过重试
+  toIdb.forEach(it => {
+    const mm = messages.find(x => x.mediaId === it.id);
+    if (mm) mm._idbSaved = true;
+  });
+}).catch(e => {
+  console.warn('聊天媒体写 IDB 失败', e);
+  showToast('聊天图片/表情包保存失败，可能存储空间不足');
+});
+
+    // ★ 关键修复：把 localStorage 里已存在的 ping 系统消息（不在 messages 数组里）合并进来，
+    // 否则每次保存都会覆盖它们，导致拍一拍 / 通话结束提示从聊天历史中消失。
+    let existingPingMsgs = [];
+    try {
+      const raw = localStorage.getItem(CHAT_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      if (Array.isArray(arr)) {
+        existingPingMsgs = arr.filter(it => it && it.type === 'ping');
+      }
+    } catch (e) {}
+
+    const merged = existingPingMsgs.length
+      ? msgData.concat(existingPingMsgs).sort((a, b) => (a.time || 0) - (b.time || 0))
+      : msgData;
+
+    localStorage.setItem(CHAT_KEY, JSON.stringify(merged.slice(-CHAT_MAX)));
+  } catch (e) {
+    try {
+      const data = messages.slice(-CHAT_MAX).map(m => ({
+        side: m.side,
+        type: 'text',
+        text: m.type === 'text' ? m.text : (m.type === 'sticker' ? '[表情包]' : '[图片]'),
         quote: m.quote || null,
         time: m.time,
         readTime: m.readTime || 0
       }));
       localStorage.setItem(CHAT_KEY, JSON.stringify(data));
-    } catch (e) {
-      try {
-        const data = messages.slice(-CHAT_MAX).map(m => ({
-          side: m.side,
-          type: 'text',
-          text: m.type === 'text' ? m.text : (m.type === 'sticker' ? '[表情包]' : '[图片]'),
-          quote: m.quote || null,
-          time: m.time,
-          readTime: m.readTime || 0
-        }));
-        localStorage.setItem(CHAT_KEY, JSON.stringify(data));
-      } catch (e2) {}
-    }
+    } catch (e2) {}
   }
+}
 
   function loadChatMessages() {
     try {
@@ -10222,111 +10837,115 @@ if (accBtn) accBtn.style.display = 'none';
     else if (cfg.receiptStyle === 'pattern') el.appendChild(buildPatternIcon());
     return el;
   }
-  function updateReceiptText(el, read) {
-    if (!el) return;
-    el.dataset.rcstyle = cfg.receiptStyle;
-    el.dataset.rcpos   = cfg.receiptPos;
-    const rcTextEl = el.querySelector('.rc-text');
-    if (!rcTextEl) return;
-    if (read) {
-      const ts = el.dataset.readTime ? Number(el.dataset.readTime) : Date.now();
-      rcTextEl.textContent = cfg.receiptTs
-        ? (cfg.rcReadText + ' ' + formatMsgTime(ts))
-        : cfg.rcReadText;
-    } else {
-      rcTextEl.textContent = cfg.rcUnreadText;
-    }
-    if (cfg.receiptStyle === 'check') {
-      const oldIcon = el.querySelector('.rc-icon');
-      if (oldIcon) oldIcon.remove();
-      el.appendChild(buildCheckIcon(!!read));
-    }
-    if (cfg.receiptStyle === 'pattern') el.classList.toggle('read', !!read);
+function updateReceiptText(el, read, customText) {
+  if (!el) return;
+  el.dataset.rcstyle = cfg.receiptStyle;
+  el.dataset.rcpos   = cfg.receiptPos;
+  const rcTextEl = el.querySelector('.rc-text');
+  if (!rcTextEl) return;
+  if (read) {
+    const ts = el.dataset.readTime ? Number(el.dataset.readTime) : Date.now();
+    // ★ 支持自定义已读文案（例如「已读不回」），没有则使用配置默认文案
+    const txt = (typeof customText === 'string' && customText) ? customText : cfg.rcReadText;
+    rcTextEl.textContent = cfg.receiptTs
+      ? (txt + ' ' + formatMsgTime(ts))
+      : txt;
+  } else {
+    rcTextEl.textContent = cfg.rcUnreadText;
   }
+  if (cfg.receiptStyle === 'check') {
+    const oldIcon = el.querySelector('.rc-icon');
+    if (oldIcon) oldIcon.remove();
+    el.appendChild(buildCheckIcon(!!read));
+  }
+  if (cfg.receiptStyle === 'pattern') el.classList.toggle('read', !!read);
+}
 
-  function reflowMsgNode(m) {
-    if (!m || !m.el) return;
-    const col = m.el.querySelector('.msg-col');
-    const extrasEl = m.el.querySelector('.msg-extras');
-    const avatarWrap = m.el.querySelector('.msg-avatar-wrap');
-    if (!col || !extrasEl) return;
+function reflowMsgNode(m) {
+  if (!m || !m.el) return;
+  const col = m.el.querySelector('.msg-col');
+  const extrasEl = m.el.querySelector('.msg-extras');
+  const avatarWrap = m.el.querySelector('.msg-avatar-wrap');
+  if (!col || !extrasEl) return;
 
-    if (m.metaRowEl && m.metaRowEl.parentNode) m.metaRowEl.parentNode.removeChild(m.metaRowEl);
-    m.metaRowEl = null;
-    if (m.timeEl && m.timeEl.parentNode) m.timeEl.parentNode.removeChild(m.timeEl);
-    if (m.receiptEl && m.receiptEl.parentNode) m.receiptEl.parentNode.removeChild(m.receiptEl);
-    extrasEl.innerHTML = '';
+  if (m.metaRowEl && m.metaRowEl.parentNode) m.metaRowEl.parentNode.removeChild(m.metaRowEl);
+  m.metaRowEl = null;
+  if (m.timeEl && m.timeEl.parentNode) m.timeEl.parentNode.removeChild(m.timeEl);
+  if (m.receiptEl && m.receiptEl.parentNode) m.receiptEl.parentNode.removeChild(m.receiptEl);
+  extrasEl.innerHTML = '';
 
-    const showTime    = cfg.timestamp && cfg.timestampPos !== 'center' && m.shouldShowTime !== false;
-    const showReceipt = m.side === 'me' && cfg.readReceipt;
-    const sameLine = showTime && showReceipt && cfg.tsRcSameLine &&
-                     cfg.timestampPos === 'below' && cfg.receiptPos === 'below';
+  const showTime    = cfg.timestamp && cfg.timestampPos !== 'center' && m.shouldShowTime !== false;
+  const showReceipt = m.side === 'me' && cfg.readReceipt;
+  const sameLine = showTime && showReceipt && cfg.tsRcSameLine &&
+                   cfg.timestampPos === 'below' && cfg.receiptPos === 'below';
 
-    if (sameLine) {
-      const row = document.createElement('div');
-      row.className = 'msg-meta-row';
-      m.metaRowEl = row;
-      if (!m.timeEl) { m.timeEl = document.createElement('div'); m.timeEl.className = 'msg-time'; }
-      renderMsgTime(m.timeEl, m.time);
-      m.timeEl.dataset.tspos = 'below';
-      row.appendChild(m.timeEl);
+  if (sameLine) {
+    const row = document.createElement('div');
+    row.className = 'msg-meta-row';
+    m.metaRowEl = row;
+    if (!m.timeEl) { m.timeEl = document.createElement('div'); m.timeEl.className = 'msg-time'; }
+    renderMsgTime(m.timeEl, m.time);
+    m.timeEl.dataset.tspos = 'below';
+    row.appendChild(m.timeEl);
 
-      const wasRead = !!m.readTime || !!(m.receiptEl && m.receiptEl.classList.contains('read'));
-      const readTime = m.readTime || 0;
-      const newReceipt = buildReceiptEl(wasRead);
-      if (wasRead) { newReceipt.classList.add('read'); newReceipt.dataset.readTime = String(readTime); }
-      m.receiptEl = newReceipt;
-      updateReceiptText(newReceipt, wasRead);
+    const wasRead = !!m.readTime || !!(m.receiptEl && m.receiptEl.classList.contains('read'));
+    const readTime = m.readTime || 0;
+    const newReceipt = buildReceiptEl(wasRead);
+    if (wasRead) { newReceipt.classList.add('read'); newReceipt.dataset.readTime = String(readTime); }
+    m.receiptEl = newReceipt;
+    // ★ 传入 m.readText，让「已读不回」这类自定义文案在重排后依然保留
+    updateReceiptText(newReceipt, wasRead, m.readText || undefined);
 
-      const idx = pendingReceipts.findIndex(p => p.msg === m);
-      if (wasRead) { if (idx !== -1) pendingReceipts.splice(idx, 1); }
-      else { if (idx !== -1) pendingReceipts[idx].el = newReceipt; else pendingReceipts.push({ el: newReceipt, msg: m }); }
+    const idx = pendingReceipts.findIndex(p => p.msg === m);
+    if (wasRead) { if (idx !== -1) pendingReceipts.splice(idx, 1); }
+    else { if (idx !== -1) pendingReceipts[idx].el = newReceipt; else pendingReceipts.push({ el: newReceipt, msg: m }); }
 
-      row.appendChild(newReceipt);
-      col.appendChild(row);
-      m.el.classList.toggle('extras-show', extrasEl.children.length > 0);
-      return;
-    }
-
-    if (showTime) {
-      if (!m.timeEl) { m.timeEl = document.createElement('div'); m.timeEl.className = 'msg-time'; }
-      renderMsgTime(m.timeEl, m.time);
-      m.timeEl.dataset.tspos = cfg.timestampPos;
-
-      if (cfg.timestampPos === 'avatar-above' || cfg.timestampPos === 'avatar-below') {
-        if (avatarWrap) avatarWrap.appendChild(m.timeEl);
-        else col.appendChild(m.timeEl);
-      } else if (cfg.timestampPos === 'above') {
-        col.insertBefore(m.timeEl, col.firstChild);
-      } else {
-        col.appendChild(m.timeEl);
-      }
-    }
-
-    if (showReceipt) {
-      const wasRead = !!m.readTime || !!(m.receiptEl && m.receiptEl.classList.contains('read'));
-      const readTime = m.readTime || 0;
-      const newReceipt = buildReceiptEl(wasRead);
-      if (wasRead) { newReceipt.classList.add('read'); newReceipt.dataset.readTime = String(readTime); }
-      m.receiptEl = newReceipt;
-      updateReceiptText(newReceipt, wasRead);
-
-      const idx = pendingReceipts.findIndex(p => p.msg === m);
-      if (wasRead) { if (idx !== -1) pendingReceipts.splice(idx, 1); }
-      else { if (idx !== -1) pendingReceipts[idx].el = newReceipt; else pendingReceipts.push({ el: newReceipt, msg: m }); }
-
-      if (cfg.receiptPos === 'above') col.insertBefore(newReceipt, col.firstChild);
-      else col.appendChild(newReceipt);
-    } else {
-      if (m.receiptEl) {
-        const idx = pendingReceipts.findIndex(p => p.msg === m);
-        if (idx !== -1) pendingReceipts.splice(idx, 1);
-        m.receiptEl = null;
-      }
-    }
-
+    row.appendChild(newReceipt);
+    col.appendChild(row);
     m.el.classList.toggle('extras-show', extrasEl.children.length > 0);
+    return;
   }
+
+  if (showTime) {
+    if (!m.timeEl) { m.timeEl = document.createElement('div'); m.timeEl.className = 'msg-time'; }
+    renderMsgTime(m.timeEl, m.time);
+    m.timeEl.dataset.tspos = cfg.timestampPos;
+
+    if (cfg.timestampPos === 'avatar-above' || cfg.timestampPos === 'avatar-below') {
+      if (avatarWrap) avatarWrap.appendChild(m.timeEl);
+      else col.appendChild(m.timeEl);
+    } else if (cfg.timestampPos === 'above') {
+      col.insertBefore(m.timeEl, col.firstChild);
+    } else {
+      col.appendChild(m.timeEl);
+    }
+  }
+
+  if (showReceipt) {
+    const wasRead = !!m.readTime || !!(m.receiptEl && m.receiptEl.classList.contains('read'));
+    const readTime = m.readTime || 0;
+    const newReceipt = buildReceiptEl(wasRead);
+    if (wasRead) { newReceipt.classList.add('read'); newReceipt.dataset.readTime = String(readTime); }
+    m.receiptEl = newReceipt;
+    // ★ 传入 m.readText
+    updateReceiptText(newReceipt, wasRead, m.readText || undefined);
+
+    const idx = pendingReceipts.findIndex(p => p.msg === m);
+    if (wasRead) { if (idx !== -1) pendingReceipts.splice(idx, 1); }
+    else { if (idx !== -1) pendingReceipts[idx].el = newReceipt; else pendingReceipts.push({ el: newReceipt, msg: m }); }
+
+    if (cfg.receiptPos === 'above') col.insertBefore(newReceipt, col.firstChild);
+    else col.appendChild(newReceipt);
+  } else {
+    if (m.receiptEl) {
+      const idx = pendingReceipts.findIndex(p => p.msg === m);
+      if (idx !== -1) pendingReceipts.splice(idx, 1);
+      m.receiptEl = null;
+    }
+  }
+
+  m.el.classList.toggle('extras-show', extrasEl.children.length > 0);
+}
 
   function recomputeShouldShowTime() {
     const changed = [];
@@ -10374,21 +10993,28 @@ if (accBtn) accBtn.style.display = 'none';
     messages.forEach(m => reflowMsgNode(m));
   }
 
-  function markMineRead(label) {
-    const now = Date.now();
-    for (let i = 0; i < pendingReceipts.length; i++) {
-      const rec = pendingReceipts[i];
-      const el = rec.el;
-      const msg = rec.msg;
-      if (!el) continue;
-      el.classList.add('read');
-      el.dataset.readTime = String(now);
-      if (msg) { msg.readTime = now; msg.receiptEl = el; }
-      updateReceiptText(el, true);
+function markMineRead(label) {
+  const now = Date.now();
+  // ★ 只有传入文案与配置的默认已读文案不同时，才作为自定义文案持久化
+  const isCustom = typeof label === 'string' && label && label !== cfg.rcReadText;
+  const customText = isCustom ? label : '';
+  for (let i = 0; i < pendingReceipts.length; i++) {
+    const rec = pendingReceipts[i];
+    const el = rec.el;
+    const msg = rec.msg;
+    if (!el) continue;
+    el.classList.add('read');
+    el.dataset.readTime = String(now);
+    if (msg) {
+      msg.readTime = now;
+      msg.receiptEl = el;
+      msg.readText = customText;   // ★ 记录自定义文案
     }
-    pendingReceipts = [];
-    saveChatMessages();
+    updateReceiptText(el, true, customText || undefined);
   }
+  pendingReceipts = [];
+  saveChatMessages();
+}
   function truncate(s, n) { s = s || ''; return s.length > n ? s.slice(0, n) + '…' : s; }
 
   function buildBubbleInner(m, quoteText, text) {
@@ -10448,80 +11074,83 @@ if (accBtn) accBtn.style.display = 'none';
     viewer.style.pointerEvents = 'auto';
   }
 
-  function addMsg(content, side, quoteText, opts) {
-    opts = opts || {};
-    let type = 'text';
-    let text = '';
-    let media = '';
-    let mediaName = '';
-    if (content && typeof content === 'object') {
-      type = (content.type === 'sticker' || content.type === 'image') ? content.type : 'text';
-      media = content.data || '';
-      mediaName = content.name || '';
-      text = content.text || '';
-      if (type !== 'text' && !media) { type = 'text'; }
-    } else {
-      text = String(content == null ? '' : content);
-    }
-
-    const id = 'm' + (++msgSeq);
-    const now = opts.time || Date.now();
-    const quoteForSave = quoteText || null;
-
-    const msg = document.createElement('div'); msg.className = 'msg ' + side; msg.dataset.id = id;
-
-    const avatarWrap = document.createElement('div'); avatarWrap.className = 'msg-avatar-wrap';
-    const avatarEl = document.createElement('div'); avatarEl.className = 'msg-avatar';
-    const avatarUrl = getStoredAvatar(side === 'me' ? 'me' : 'them');
-    if (avatarUrl) { const img = document.createElement('img'); img.src = avatarUrl; img.alt = ''; avatarEl.appendChild(img); }
-    else { const span = document.createElement('span'); span.textContent = side === 'me' ? '我' : '梦'; avatarEl.appendChild(span); }
-    avatarWrap.appendChild(avatarEl);
-
-    if (side === 'them') bindPingDoubleTap(avatarEl);
-
-    const check = document.createElement('span'); check.className = 'check-dot';
-    check.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>';
-
-    const col = document.createElement('div'); col.className = 'msg-col';
-    const bubble = document.createElement('div'); bubble.className = 'bubble';
-
-    const msgObj = {
-      id: id, side: side, type: type,
-      text: text,
-      media: media,
-      mediaName: mediaName,
-      quote: quoteForSave,
-      el: msg,
-      time: now,
-      readTime: opts.readTime || 0,
-      timeEl: null, receiptEl: null,
-      shouldShowTime: false
-    };
-
-    bubble.appendChild(buildBubbleInner(msgObj, quoteText, text));
-    col.appendChild(bubble);
-
-    const extrasEl = document.createElement('div'); extrasEl.className = 'msg-extras';
-
-    msg.appendChild(avatarWrap);
-    msg.appendChild(check);
-    msg.appendChild(extrasEl);
-    msg.appendChild(col);
-    chat.appendChild(msg);
-
-    messages.push(msgObj);
-
-    const changed = recomputeShouldShowTime();
-    changed.forEach(prev => { if (prev !== msgObj && prev.el) reflowMsgNode(prev); });
-    reflowMsgNode(msgObj);
-
-    if (cfg.timestamp && cfg.timestampPos === 'center') rebuildCenterSeps();
-
-    if (side === 'them' && !opts.restore) markMineRead('已读');
-    if (!opts.skipSave) saveChatMessages();
-    chat.scrollTop = chat.scrollHeight;
-    return id;
+function addMsg(content, side, quoteText, opts) {
+  opts = opts || {};
+  let type = 'text';
+  let text = '';
+  let media = '';
+  let mediaName = '';
+  if (content && typeof content === 'object') {
+    type = (content.type === 'sticker' || content.type === 'image') ? content.type : 'text';
+    media = content.data || '';
+    mediaName = content.name || '';
+    text = content.text || '';
+    if (type !== 'text' && !media) { type = 'text'; }
+  } else {
+    text = String(content == null ? '' : content);
   }
+
+  const id = 'm' + (++msgSeq);
+  const now = opts.time || Date.now();
+  const quoteForSave = quoteText || null;
+
+  const msg = document.createElement('div'); msg.className = 'msg ' + side; msg.dataset.id = id;
+
+  const avatarWrap = document.createElement('div'); avatarWrap.className = 'msg-avatar-wrap';
+  const avatarEl = document.createElement('div'); avatarEl.className = 'msg-avatar';
+  const avatarUrl = getStoredAvatar(side === 'me' ? 'me' : 'them');
+  if (avatarUrl) { const img = document.createElement('img'); img.src = avatarUrl; img.alt = ''; avatarEl.appendChild(img); }
+  else { const span = document.createElement('span'); span.textContent = side === 'me' ? '我' : '梦'; avatarEl.appendChild(span); }
+  avatarWrap.appendChild(avatarEl);
+
+  if (side === 'them') bindPingDoubleTap(avatarEl);
+
+  const check = document.createElement('span'); check.className = 'check-dot';
+  check.innerHTML = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>';
+
+  const col = document.createElement('div'); col.className = 'msg-col';
+  const bubble = document.createElement('div'); bubble.className = 'bubble';
+
+  const msgObj = {
+    id: id, side: side, type: type,
+    text: text,
+    media: media,
+    mediaName: mediaName,
+    mediaId: opts.mediaId || null,
+    quote: quoteForSave,
+    el: msg,
+    time: now,
+    readTime: opts.readTime || 0,
+    readText: opts.readText || '',    // ★ 恢复时保留自定义已读文案
+    timeEl: null, receiptEl: null,
+    shouldShowTime: false
+  };
+  if (opts.mediaId) msgObj._idbSaved = true;
+
+  bubble.appendChild(buildBubbleInner(msgObj, quoteText, text));
+  col.appendChild(bubble);
+
+  const extrasEl = document.createElement('div'); extrasEl.className = 'msg-extras';
+
+  msg.appendChild(avatarWrap);
+  msg.appendChild(check);
+  msg.appendChild(extrasEl);
+  msg.appendChild(col);
+  chat.appendChild(msg);
+
+  messages.push(msgObj);
+
+  const changed = recomputeShouldShowTime();
+  changed.forEach(prev => { if (prev !== msgObj && prev.el) reflowMsgNode(prev); });
+  reflowMsgNode(msgObj);
+
+  if (cfg.timestamp && cfg.timestampPos === 'center') rebuildCenterSeps();
+
+  if (side === 'them' && !opts.restore) markMineRead();
+  if (!opts.skipSave) saveChatMessages();
+  chat.scrollTop = chat.scrollHeight;
+  return id;
+}
 
   function findMessage(id) { return messages.find(m => m.id === id) || null; }
   function removeMessage(id) {
@@ -10596,18 +11225,18 @@ function pickReplyContent() {
     scheduleReply();
   });
 
-  function scheduleReply() {
-    const delayMs = randomDelayMs(), total = randomCount();
-    setTimeout(() => {
-      if (cfg.noReply && Math.random() * 100 < clampProb(cfg.noReplyProb)) {
-        if (cfg.noReplyStyle === 'message') {
-          markMineRead('已读');
-          setTimeout(() => addMsg('已读不回', 'them'), 320 + Math.random() * 240);
-        } else {
-          markMineRead('已读不回');
-        }
-        return;
+function scheduleReply() {
+  const delayMs = randomDelayMs(), total = randomCount();
+  setTimeout(() => {
+    if (cfg.noReply && Math.random() * 100 < clampProb(cfg.noReplyProb)) {
+      if (cfg.noReplyStyle === 'message') {
+        markMineRead();
+        setTimeout(() => addMsg('已读不回', 'them'), 320 + Math.random() * 240);
+      } else {
+        markMineRead('已读不回');
       }
+      return;
+    }
 // ★ 梦角拍一拍概率
 const themPingP = clampMediaProb(cfg.themPingProb);
 if (themPingP > 0 && Math.random() * 100 < themPingP) {
@@ -10636,48 +11265,50 @@ if (themPingP > 0 && Math.random() * 100 < themPingP) {
     }, delayMs);
   }
 
-  function openMediaPicker(type) {
-    const pool = allActiveMedia(type);
-    const label = type === 'sticker' ? '表情包' : '图片';
-    if (!pool.length) {
-      openModal('选择' + label,
-        body => {
-          body.innerHTML = '<div class="card-empty" style="font-size:12.5px;line-height:1.7;">还没有可用的' + label + '。<br>请到「设置 → 字卡设置 → ' + label + '」中上传。</div>';
-        },
-        [{ label: '去添加', primary: true, onClick: function () { closeModal(); openSettings(); renderGroups(); renderCards(); renderCardTypeUI(); showSheetPage('cards'); switchCardType(type); } },
-         { label: '关闭', onClick: closeModal }]
-      );
-      return;
-    }
+async function openMediaPicker(type) {
+  // ★ 修改：先等待 IDB 媒体补齐，避免首屏媒体为空
+  try { await hydrateCardData(); } catch (e) { console.warn('媒体补齐失败', e); }
+  const pool = allActiveMedia(type);
+  const label = type === 'sticker' ? '表情包' : '图片';
+  if (!pool.length) {
     openModal('选择' + label,
-      function (body) {
-        const grid = document.createElement('div');
-        grid.className = 'media-grid';
-        grid.style.maxHeight = '320px';
-        pool.forEach(item => {
-          const cell = document.createElement('div');
-          cell.className = 'media-cell';
-          const img = document.createElement('img');
-          img.src = item.data; img.alt = '';
-          cell.appendChild(img);
-          if (item.name) {
-            const nm = document.createElement('div'); nm.className = 'mc-name'; nm.textContent = item.name;
-            cell.appendChild(nm);
-          }
-          cell.addEventListener('click', function () {
-            closeModal();
-            const quoted = replyTarget ? replyTarget.text : null;
-            addMsg({ type: type, data: item.data, name: item.name || '' }, 'me', quoted);
-            clearReply();
-            scheduleReply();
-          });
-          grid.appendChild(cell);
-        });
-        body.appendChild(grid);
+      body => {
+        body.innerHTML = '<div class="card-empty" style="font-size:12.5px;line-height:1.7;">还没有可用的' + label + '。<br>请到「设置 → 字卡设置 → ' + label + '」中上传。</div>';
       },
-      [{ label: '取消', onClick: closeModal }]
+      [{ label: '去添加', primary: true, onClick: function () { closeModal(); openSettings(); renderGroups(); renderCards(); renderCardTypeUI(); showSheetPage('cards'); switchCardType(type); } },
+       { label: '关闭', onClick: closeModal }]
     );
+    return;
   }
+  openModal('选择' + label,
+    function (body) {
+      const grid = document.createElement('div');
+      grid.className = 'media-grid';
+      grid.style.maxHeight = '320px';
+      pool.forEach(item => {
+        const cell = document.createElement('div');
+        cell.className = 'media-cell';
+        const img = document.createElement('img');
+        img.src = item.data; img.alt = '';
+        cell.appendChild(img);
+        if (item.name) {
+          const nm = document.createElement('div'); nm.className = 'mc-name'; nm.textContent = item.name;
+          cell.appendChild(nm);
+        }
+        cell.addEventListener('click', function () {
+          closeModal();
+          const quoted = replyTarget ? replyTarget.text : null;
+          addMsg({ type: type, data: item.data, name: item.name || '' }, 'me', quoted);
+          clearReply();
+          scheduleReply();
+        });
+        grid.appendChild(cell);
+      });
+      body.appendChild(grid);
+    },
+    [{ label: '取消', onClick: closeModal }]
+  );
+}
 
   if (composerStickerBtn) composerStickerBtn.addEventListener('click', function () { openMediaPicker('sticker'); });
   if (composerImageBtn) composerImageBtn.addEventListener('click', function () { openMediaPicker('image'); });
@@ -10804,63 +11435,127 @@ if (themPingP > 0 && Math.random() * 100 < themPingP) {
     try { const raw = localStorage.getItem(FAV_KEY); const arr = raw ? JSON.parse(raw) : []; return Array.isArray(arr) ? arr : []; }
     catch (e) { return []; }
   }
-  function saveFavs(arr) { try { localStorage.setItem(FAV_KEY, JSON.stringify(arr)); } catch (e) {} }
-  function favoriteMessages(list) {
-    if (!list.length) return;
-    const favs = loadFavs();
-    list.forEach(m => {
-      favs.push({
-        side: m.side,
-        type: m.type || 'text',
-        text: m.text || '',
-        media: m.media || '',
-        mediaName: m.mediaName || '',
-        quote: m.quote || null,
-        time: Date.now()
-      });
-    });
-    saveFavs(favs);
-    showToast('已收藏 ' + list.length + ' 条消息');
-  }
-  function renderFavorites() {
-    if (!favList) return;
-    const favs = loadFavs(); favList.innerHTML = '';
-    if (!favs.length) {
-      favList.innerHTML = '<div class="fav-empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20.5 12 16 5 20.5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v15.5z"></path></svg><span>还没有收藏的消息<br>长按聊天中的气泡即可收藏</span></div>';
-      return;
-    }
-    favs.slice().reverse().forEach((f, revIdx) => {
-      const realIdx = favs.length - 1 - revIdx;
-      const item = document.createElement('div'); item.className = 'fav-item';
-      const head = document.createElement('div'); head.className = 'fav-head';
-      const side = document.createElement('span'); side.className = 'fav-side'; side.textContent = f.side === 'me' ? getStoredName('me') : getStoredName('them');
-      const del = document.createElement('button'); del.className = 'fav-del'; del.type = 'button';
-      del.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="M6 6l12 12"></path></svg>';
-      del.addEventListener('click', () => {
-        const list = loadFavs(); list.splice(realIdx, 1); saveFavs(list); renderFavorites(); showToast('已取消收藏');
-      });
-      head.appendChild(side); head.appendChild(del); item.appendChild(head);
-      if (f.quote) {
-        const q = document.createElement('div'); q.className = 'fav-quote';
-        q.textContent = truncate(f.quote, 50);
-        item.appendChild(q);
+let _favSaveFailWarned = false;
+let _favMetaSaveFailWarned = false;
+function saveFavs(arr) {
+  const toIdb = [];
+  const persist = arr.map((f, idx) => {
+    if (!f) return f;
+    if (f.type === 'sticker' || f.type === 'image') {
+      if (typeof f.media === 'string' && f.media.indexOf('data:') === 0) {
+        const mediaId = f.mediaId || ('fav_' + idx + '_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6));
+        toIdb.push({ id: mediaId, data: f.media });
+        return Object.assign({}, f, { media: '', mediaId: mediaId });
       }
-      if (f.type === 'sticker' || f.type === 'image') {
-        const mediaWrap = document.createElement('div');
-        mediaWrap.style.cssText = 'margin-top:4px;';
+    }
+    return f;
+  });
+  if (toIdb.length) idbBulkPut(toIdb).catch(e => {
+    console.warn('收藏媒体写 IDB 失败', e);
+    if (!_favSaveFailWarned) {
+      _favSaveFailWarned = true;
+      showToast('收藏图片保存失败，可能存储空间不足');
+    }
+  });
+  try { localStorage.setItem(FAV_KEY, JSON.stringify(persist)); }
+  catch (e) {
+    console.warn('收藏文本保存失败', e);
+    if (!_favMetaSaveFailWarned) {
+      _favMetaSaveFailWarned = true;
+      showToast('收藏保存失败，可能存储空间不足');
+    }
+  }
+}
+
+/* ★ 新增：批量收藏消息到收藏页 */
+function favoriteMessages(list) {
+  if (!Array.isArray(list) || !list.length) return;
+  const favs = loadFavs();
+  let count = 0;
+  list.forEach(m => {
+    if (!m) return;
+    const type = (m.type === 'sticker' || m.type === 'image') ? m.type : 'text';
+    const f = {
+      side: m.side === 'me' ? 'me' : 'them',
+      type: type,
+      text: type === 'text' ? (m.text || '') : '',
+      media: '',
+      mediaName: m.mediaName || '',
+      quote: m.quote || null,
+      time: Date.now()
+    };
+    if (type !== 'text') {
+      if (m.mediaId) f.mediaId = m.mediaId;
+      if (m.media) f.media = m.media;
+    }
+    favs.push(f);
+    count++;
+  });
+  saveFavs(favs);
+  if (count > 0) showToast('已收藏 ' + count + ' 条');
+}
+
+let _favRenderToken = 0;
+async function renderFavorites() {
+  if (!favList) return;
+  const myToken = ++_favRenderToken;
+  const favs = loadFavs();
+  favList.innerHTML = '';
+  if (!favs.length) {
+    favList.innerHTML = '<div class="fav-empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M19 20.5 12 16 5 20.5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v15.5z"></path></svg><span>还没有收藏的消息<br>长按聊天中的气泡即可收藏</span></div>';
+    return;
+  }
+  // 从 IDB 补回收藏图片
+  await Promise.all(favs.map(f => {
+    if (f && f.mediaId && !f.media) {
+      return idbGet(f.mediaId).then(d => { if (d) f.media = d; });
+    }
+    return null;
+  }));
+
+  // 已被新一次 renderFavorites 取代，放弃本次渲染
+  if (myToken !== _favRenderToken) return;
+
+  favList.innerHTML = '';
+  favs.slice().reverse().forEach((f, revIdx) => {
+    const realIdx = favs.length - 1 - revIdx;
+    const item = document.createElement('div'); item.className = 'fav-item';
+    const head = document.createElement('div'); head.className = 'fav-head';
+    const side = document.createElement('span'); side.className = 'fav-side'; side.textContent = f.side === 'me' ? getStoredName('me') : getStoredName('them');
+    const del = document.createElement('button'); del.className = 'fav-del'; del.type = 'button';
+    del.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M18 6 6 18"></path><path d="M6 6l12 12"></path></svg>';
+    del.addEventListener('click', () => {
+      const list = loadFavs(); list.splice(realIdx, 1); saveFavs(list); renderFavorites(); showToast('已取消收藏');
+    });
+    head.appendChild(side); head.appendChild(del); item.appendChild(head);
+    if (f.quote) {
+      const q = document.createElement('div'); q.className = 'fav-quote';
+      q.textContent = truncate(f.quote, 50);
+      item.appendChild(q);
+    }
+    if (f.type === 'sticker' || f.type === 'image') {
+      const mediaWrap = document.createElement('div');
+      mediaWrap.style.cssText = 'margin-top:4px;';
+      if (f.media) {
         const img = document.createElement('img');
         img.src = f.media;
         img.style.cssText = 'max-width:120px;max-height:120px;border-radius:10px;display:block;cursor:zoom-in;';
         if (f.type === 'sticker') img.style.background = 'transparent';
         img.addEventListener('click', function () { openImageViewer(f.media, f.mediaName || ''); });
         mediaWrap.appendChild(img);
-        item.appendChild(mediaWrap);
       } else {
-        const t = document.createElement('div'); t.className = 'fav-text'; t.textContent = f.text; item.appendChild(t);
+        const placeholder = document.createElement('div');
+        placeholder.textContent = '（图片数据丢失）';
+        placeholder.style.cssText = 'font-size:12px;color:var(--text-faint);padding:10px 12px;background:var(--accent-lighter);border-radius:10px;display:inline-block;';
+        mediaWrap.appendChild(placeholder);
       }
-      favList.appendChild(item);
-    });
-  }
+      item.appendChild(mediaWrap);
+    } else {
+      const t = document.createElement('div'); t.className = 'fav-text'; t.textContent = f.text; item.appendChild(t);
+    }
+    favList.appendChild(item);
+  });
+}
 
   let ctxMsgId = null;
   function openCtxMenu(msgEl) { ctxMsgId = msgEl.dataset.id; ctxOverlay.classList.add('show'); ctxMenu.classList.add('show'); }
@@ -11043,7 +11738,13 @@ if (themPingP > 0 && Math.random() * 100 < themPingP) {
   });
 
   function openSettings() { showSheetPage('menu'); overlay.classList.add('show'); sheet.classList.add('show'); }
-  function closeSettings() { overlay.classList.remove('show'); sheet.classList.remove('show'); groupNew.hidden = true; if (movePanel) movePanel.hidden = true; }
+  function closeSettings() {
+  overlay.classList.remove('show');
+  sheet.classList.remove('show');
+  groupNew.hidden = true;
+  if (movePanel) movePanel.hidden = true;
+  if (batchPanel) batchPanel.hidden = true;
+}
   closeBtn.addEventListener('click', closeSettings);
   overlay.addEventListener('click', closeSettings);
 
@@ -11104,15 +11805,24 @@ if (themPingP > 0 && Math.random() * 100 < themPingP) {
     applyMsgAvatarShow();
   })();
 
-  loadCfg();
-  loadCallCfg();
-  loadLetterSettings();
-  loadCardData();
+loadCfg();
+loadCallCfg();
+loadLetterSettings();
+const _cardDataReady = loadCardData();
+Promise.resolve(_cardDataReady).then(() => {
   migrateOldPingCards();
   migrateNewDefaultPings();
   migratePingTextRename();
   migratePingDefaultsV3();
   migrateRemoveBadPingCards();
+  // migrate 可能修改了 cardData，重新渲染卡片相关 UI
+  renderCardScopeUI();
+  renderCardTypeUI();
+  renderGroups();
+  renderCards();
+  renderPingList();
+  syncSysGroupHead();
+});
   loadWallpapers();
   loadMailCfg();
   loadLetters();
@@ -11152,41 +11862,51 @@ if (themPingP > 0 && Math.random() * 100 < themPingP) {
   syncSysCardsMasterUI();
   renderCallAvatar();
 
-  (function restoreChatMessages() {
-    const saved = loadChatMessages();
-    saved.forEach(item => {
-      if (!item) return;
-      if (item.type === 'ping') {
-        if (!item.text) return;
-        let displayText = String(item.text);
-        const el = document.createElement('div');
-        el.className = 'ping-system';
-        const text = document.createElement('span');
-        text.textContent = displayText;
-        el.appendChild(text);
-        chat.appendChild(el);
-        return;
-      }
-      if (item.type === 'sticker' || item.type === 'image') {
-        if (!item.media) return;
-        addMsg(
-          { type: item.type, data: item.media, name: item.mediaName || '' },
-          item.side === 'me' ? 'me' : 'them',
-          item.quote || null,
-          { time: item.time || Date.now(), readTime: item.readTime || 0, restore: true, skipSave: true }
-        );
-      } else {
-        if (!item.text) return;
-        addMsg(
-          { type: 'text', text: item.text },
-          item.side === 'me' ? 'me' : 'them',
-          item.quote || null,
-          { time: item.time || Date.now(), readTime: item.readTime || 0, restore: true, skipSave: true }
-        );
-      }
-    });
-    saveChatMessages();
-  })();
+(async function restoreChatMessages() {
+  const saved = loadChatMessages();
+
+  // 从 IDB 补回聊天图片
+  const pending = saved.filter(item => item && item.mediaId && !item.media);
+  if (pending.length) {
+    await Promise.all(pending.map(item =>
+      idbGet(item.mediaId).then(d => { if (d) item.media = d; })
+    ));
+  }
+
+  saved.forEach(item => {
+    if (!item) return;
+    if (item.type === 'ping') {
+      if (!item.text) return;
+      const el = document.createElement('div');
+      el.className = 'ping-system';
+      const text = document.createElement('span');
+      text.textContent = String(item.text);
+      el.appendChild(text);
+      chat.appendChild(el);
+      return;
+    }
+    if (item.type === 'sticker' || item.type === 'image') {
+      if (!item.media) return;
+      addMsg(
+        { type: item.type, data: item.media, name: item.mediaName || '' },
+        item.side === 'me' ? 'me' : 'them',
+        item.quote || null,
+        // ★ 修复：恢复 readText，让「已读不回」这类自定义文案在刷新后依然保留
+        { time: item.time || Date.now(), readTime: item.readTime || 0, readText: item.readText || '', restore: true, skipSave: true, mediaId: item.mediaId || null }
+      );
+    } else {
+      if (!item.text) return;
+      addMsg(
+        { type: 'text', text: item.text },
+        item.side === 'me' ? 'me' : 'them',
+        item.quote || null,
+        // ★ 修复：恢复 readText
+        { time: item.time || Date.now(), readTime: item.readTime || 0, readText: item.readText || '', restore: true, skipSave: true }
+      );
+    }
+  });
+  saveChatMessages();
+})();
 
   setTimeout(processPendingLetters, 500);
 
@@ -11269,6 +11989,8 @@ if (themPingP > 0 && Math.random() * 100 < themPingP) {
   scheduleMailTriggerLoop();
 
   document.addEventListener('visibilitychange', () => { if (!document.hidden) processPendingLetters(); });
+
+  Promise.resolve(_cardDataReady).then(() => hydrateCardData());
 
   showMainPage('home');
 </script>
